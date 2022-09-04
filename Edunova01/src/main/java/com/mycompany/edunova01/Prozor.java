@@ -15,6 +15,10 @@ public class Prozor extends javax.swing.JFrame {
      */
     public Prozor() {
         initComponents();
+        
+        btnGumb.setText("Pozdrav!!!");
+        
+        
     }
 
     /**
@@ -26,11 +30,12 @@ public class Prozor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnPrviBroj = new javax.swing.JButton();
+        btnGumb = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Hello");
 
-        btnPrviBroj.setText("Prvi broj");
+        btnGumb.setText("Gumb");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -38,14 +43,14 @@ public class Prozor extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(67, 67, 67)
-                .addComponent(btnPrviBroj)
-                .addContainerGap(259, Short.MAX_VALUE))
+                .addComponent(btnGumb)
+                .addContainerGap(261, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(97, 97, 97)
-                .addComponent(btnPrviBroj)
+                .addComponent(btnGumb)
                 .addContainerGap(181, Short.MAX_VALUE))
         );
 
@@ -88,6 +93,6 @@ public class Prozor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnPrviBroj;
+    private javax.swing.JButton btnGumb;
     // End of variables declaration//GEN-END:variables
 }
