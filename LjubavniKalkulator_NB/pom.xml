@@ -9,6 +9,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>18</maven.compiler.source>
         <maven.compiler.target>18</maven.compiler.target>
-        <exec.mainClass>com.mycompany.ljubavnikalkulator_nb.LjubavniKalkulator_NB</exec.mainClass>
+        <exec.mainClass>com.mycompany.ljubavnikalkulator_nb.Prozor</exec.mainClass>
     </properties>
 </project>

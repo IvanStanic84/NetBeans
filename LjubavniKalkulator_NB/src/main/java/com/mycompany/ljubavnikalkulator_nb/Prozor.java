@@ -16,6 +16,12 @@ public class Prozor extends javax.swing.JPanel {
     public Prozor() {
         initComponents();
     }
+    
+    public static void main(String[] args) {
+        
+        
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,19 +32,38 @@ public class Prozor extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnPrvoIme = new javax.swing.JButton();
+        btnDrugoIme = new javax.swing.JButton();
+
+        btnPrvoIme.setText("Prvo Ime");
+
+        btnDrugoIme.setText("Drugo Ime");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addComponent(btnPrvoIme)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                .addComponent(btnDrugoIme)
+                .addGap(62, 62, 62))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(98, 98, 98)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPrvoIme)
+                    .addComponent(btnDrugoIme))
+                .addContainerGap(180, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDrugoIme;
+    private javax.swing.JButton btnPrvoIme;
     // End of variables declaration//GEN-END:variables
 }
