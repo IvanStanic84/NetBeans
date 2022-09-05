@@ -4,6 +4,8 @@
  */
 package com.mycompany.edunova01;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Korisnik
@@ -15,10 +17,9 @@ public class Prozor extends javax.swing.JFrame {
      */
     public Prozor() {
         initComponents();
-        
+
         btnGumb.setText("Pozdrav!!!");
-        
-        
+
     }
 
     /**
@@ -31,31 +32,111 @@ public class Prozor extends javax.swing.JFrame {
     private void initComponents() {
 
         btnGumb = new javax.swing.JButton();
+        txtOd = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        txtDo = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        btnIspisi = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        taRezultat = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Hello");
 
-        btnGumb.setText("Gumb");
+        btnGumb.setText("Pozdrav");
+        btnGumb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGumbActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("OD");
+
+        jLabel2.setText("DO");
+
+        btnIspisi.setText("Ispiši parne brojeve");
+        btnIspisi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIspisiActionPerformed(evt);
+            }
+        });
+
+        taRezultat.setColumns(20);
+        taRezultat.setRows(5);
+        jScrollPane1.setViewportView(taRezultat);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(btnGumb)
-                .addContainerGap(261, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addComponent(btnGumb))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(68, 68, 68)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtDo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtOd, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(154, 154, 154)
+                                .addComponent(btnIspisi)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(97, 97, 97)
-                .addComponent(btnGumb)
-                .addContainerGap(181, Short.MAX_VALUE))
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnGumb)
+                        .addGap(68, 68, 68)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtOd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
+                        .addComponent(btnIspisi)
+                        .addGap(1, 1, 1)
+                        .addComponent(jLabel2)
+                        .addGap(7, 7, 7)
+                        .addComponent(txtDo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnGumbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGumbActionPerformed
+        // TODO add your handling code here:
+
+        JOptionPane.showConfirmDialog(rootPane, "Pozdraviii");
+
+
+    }//GEN-LAST:event_btnGumbActionPerformed
+
+    private void btnIspisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIspisiActionPerformed
+
+        int pb = Integer.parseInt(txtOd.getText());
+        int db = Integer.parseInt(txtDo.getText());
+        StringBuilder sb = new StringBuilder();
+        for (int i = pb; i <= db; i++) {
+            if (i % 2 == 0) {
+                sb.append(i);
+                sb.append("\n");
+            }
+        }
+        taRezultat.setText(sb.toString());
+
+
+    }//GEN-LAST:event_btnIspisiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -94,5 +175,12 @@ public class Prozor extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGumb;
+    private javax.swing.JButton btnIspisi;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea taRezultat;
+    private javax.swing.JTextField txtDo;
+    private javax.swing.JTextField txtOd;
     // End of variables declaration//GEN-END:variables
 }
