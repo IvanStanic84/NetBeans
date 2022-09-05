@@ -4,6 +4,10 @@
  */
 package com.mycompany.ljubavnikalkulator_nb;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Korisnik
@@ -26,38 +30,211 @@ public class Prozor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        txtPrvoIme = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        txtDrugoIme = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        btnIzracunaj = new javax.swing.JToggleButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        taRezultat = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("jButton1");
+        txtPrvoIme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPrvoImeActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("jButton2");
+        jLabel1.setText("Prvo ime");
+
+        txtDrugoIme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDrugoImeActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Drugo ime");
+
+        btnIzracunaj.setText("Izračunaj postotak ljubavi");
+        btnIzracunaj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIzracunajActionPerformed(evt);
+            }
+        });
+
+        taRezultat.setColumns(20);
+        taRezultat.setRows(5);
+        jScrollPane1.setViewportView(taRezultat);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(147, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(btnIzracunaj)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(154, 154, 154))
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(80, 80, 80))
+                .addGap(65, 65, 65)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel1)
+                    .addComponent(txtPrvoIme, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(79, 79, 79))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(txtDrugoIme, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(59, 59, 59)
+                .addGap(62, 62, 62)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(219, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPrvoIme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDrugoIme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addComponent(btnIzracunaj)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtPrvoImeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrvoImeActionPerformed
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_txtPrvoImeActionPerformed
+
+    private void txtDrugoImeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDrugoImeActionPerformed
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_txtDrugoImeActionPerformed
+
+    private void btnIzracunajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzracunajActionPerformed
+        // TODO add your handling code here:
+
+        String ime1;
+        while (true) {
+
+            ime1 = txtPrvoIme.getText();
+
+            if (ime1.trim().equals("")) {
+                JOptionPane.showMessageDialog(null, "Obavezan unos prvog imena");
+            } else {
+                break;
+            }
+        }
+
+        String ime2;
+
+        while (true) {
+
+            ime2 = txtDrugoIme.getText();
+
+            if (ime2.trim().equals("")) {
+                JOptionPane.showMessageDialog(null, "Obavezan unos drugog imena");
+            } else {
+                break;
+            }
+        }
+        String ime12 = ime1.trim().toLowerCase().replaceAll("\\s", "")
+                + ime2.trim().toLowerCase().replaceAll("\\s", "");
+
+        int k = 0;
+        int[] niz = new int[ime12.length()];
+
+        for (int i = 0; i < ime12.length(); i++) {
+            k = 0;
+            for (int j = 0; j < ime12.length(); j++) {
+                if (ime12.charAt(i) == ime12.charAt(j)) {
+                    k++;
+                }
+            }
+            niz[i] = k;
+
+            k = 0;
+        }
+        /////////////////////////////////////////////////////
+
+        List<Integer> arrayList = new ArrayList<>(niz.length);
+
+        for (int i : niz) {
+            arrayList.add(Integer.valueOf(i));
+        }
+
+        ////////////////////////////////////////////////////
+        int result = calc(arrayList);
+
+        String s = Integer.toString(result);
+        taRezultat.setText(ime1 + " i " + ime2 + " vole se " + s + " % ");
+
+    }
+
+    private static Integer calc(List<Integer> arrayList) {
+
+        int t = arrayList.size();
+
+        for (int x = 0; x < t; x++) {
+
+            int w = arrayList.get(x);
+
+            if (w > 9) {
+
+                arrayList.add(x, 1);
+                arrayList.set(x + 1, w % 10);
+
+            }
+
+        }
+
+        List<Integer> kList = new ArrayList<>();
+        int p = arrayList.size();
+
+        if (p <= 2) {
+            StringBuilder str = new StringBuilder();
+            for (int i : arrayList) {
+                str.append(i);
+            }
+            return Integer.parseInt(str.toString());
+        }
+
+        boolean isOdd = !(p % 2 == 0);
+        int z = isOdd ? 1 : 0;
+        int z1 = isOdd ? 0 : 1;
+        int stop = (p / 2 + z);
+
+        if (isOdd) {
+            arrayList.add(p / 2, 0);
+        }
+
+        for (int i = 0; i < stop; i++) {
+
+            int k2 = arrayList.get(p - i - z1);
+
+            int k1 = arrayList.get(i);
+
+            int k = k1 + k2;
+            kList.add(k);
+        }
+
+        return calc(kList);
+
+
+    }//GEN-LAST:event_btnIzracunajActionPerformed
 
     /**
      * @param args the command line arguments
@@ -95,7 +272,12 @@ public class Prozor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JToggleButton btnIzracunaj;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea taRezultat;
+    private javax.swing.JTextField txtDrugoIme;
+    private javax.swing.JTextField txtPrvoIme;
     // End of variables declaration//GEN-END:variables
 }
