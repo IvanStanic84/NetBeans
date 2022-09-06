@@ -135,6 +135,7 @@ public class Prozor extends javax.swing.JFrame {
 
             if (ime1.trim().equals("")) {
                 JOptionPane.showMessageDialog(null, "Obavezan unos prvog imena");
+                break;
             } else {
                 break;
             }
@@ -148,6 +149,7 @@ public class Prozor extends javax.swing.JFrame {
 
             if (ime2.trim().equals("")) {
                 JOptionPane.showMessageDialog(null, "Obavezan unos drugog imena");
+                break;
             } else {
                 break;
             }
