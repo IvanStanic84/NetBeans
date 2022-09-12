@@ -19,7 +19,7 @@
             <scope>system</scope>
             <version>1.0</version>
             <!-- Prilagoditi lokanu putanju -->
-            <systemPath>C:\Users\dell\Documents\EdunovaJP26\java\netbeans\EdunovaApp\lib\edunovaeclipse.jar</systemPath>
+            <systemPath>C:\GitZadaci\NetBeans\EdunovaApp\lib\edunovaeclipse.jar</systemPath>
         </dependency>
         
         
