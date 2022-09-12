@@ -38,7 +38,10 @@
 
         <!-- moraju se slijedno navesti klase koje su mapirane -->
         <mapping class="edunova.model.Smjer" />
-        <mapping class="edunova.model.Mjesto" />
+        <mapping class="edunova.model.Polaznik" />
+        <mapping class="edunova.model.Predavac" />
+        <mapping class="edunova.model.Grupa" />
+        <mapping class="edunova.model.Clan" />
        
     </session-factory>
-</hibernate-configuration>
+</hibernate-configuration>ateconfiguration>

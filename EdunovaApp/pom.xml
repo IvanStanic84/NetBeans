@@ -12,6 +12,17 @@
         <exec.mainClass>edunova.Start</exec.mainClass>
     </properties>
     <dependencies>
+        
+        <dependency>
+            <groupId>eclipse</groupId>
+            <artifactId>eclipse</artifactId>
+            <scope>system</scope>
+            <version>1.0</version>
+            <!-- Prilagoditi lokanu putanju -->
+            <systemPath>C:\Users\dell\Documents\EdunovaJP26\java\netbeans\EdunovaApp\lib\edunovaeclipse.jar</systemPath>
+        </dependency>
+        
+        
         <!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
@@ -25,6 +36,16 @@
             <artifactId>hibernate-core</artifactId>
             <version>6.1.0.Final</version>
         </dependency>
+        
+        <!-- https://mvnrepository.com/artifact/com.github.javafaker/javafaker -->
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+        
+        
+
 
     </dependencies>
 </project>
