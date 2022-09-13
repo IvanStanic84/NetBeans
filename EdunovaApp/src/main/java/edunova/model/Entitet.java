@@ -8,8 +8,8 @@ import jakarta.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class Entitet {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+       @Id
+       @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer sifra;
 
     public Entitet() {

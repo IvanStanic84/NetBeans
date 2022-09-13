@@ -5,37 +5,36 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Clan extends Entitet {
+        
+        @ManyToOne
+	private Grupa grupa;
+        @ManyToOne
+	private Polaznik polaznik;
 
-    @ManyToOne
-    private Grupa grupa;
+	public Clan() {
+		super();
+	}
 
-    @ManyToOne
-    private Polaznik polaznik;
+	public Clan(Integer sifra, Grupa grupa, Polaznik polaznik) {
+		super(sifra);
+		this.grupa = grupa;
+		this.polaznik = polaznik;
+	}
 
-    public Clan() {
-        super();
-    }
+	public Grupa getGrupa() {
+		return grupa;
+	}
 
-    public Clan(Integer sifra, Grupa grupa, Polaznik polaznik) {
-        super(sifra);
-        this.grupa = grupa;
-        this.polaznik = polaznik;
-    }
+	public void setGrupa(Grupa grupa) {
+		this.grupa = grupa;
+	}
 
-    public Grupa getGrupa() {
-        return grupa;
-    }
+	public Polaznik getPolaznik() {
+		return polaznik;
+	}
 
-    public void setGrupa(Grupa grupa) {
-        this.grupa = grupa;
-    }
-
-    public Polaznik getPolaznik() {
-        return polaznik;
-    }
-
-    public void setPolaznik(Polaznik polaznik) {
-        this.polaznik = polaznik;
-    }
+	public void setPolaznik(Polaznik polaznik) {
+		this.polaznik = polaznik;
+	}
 
 }

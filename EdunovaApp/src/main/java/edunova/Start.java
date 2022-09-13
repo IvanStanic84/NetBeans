@@ -7,22 +7,18 @@ package edunova;
 
 import edunova.util.HibernateUtil;
 import edunova.util.PocetniInsert;
-import java.math.BigDecimal;
 
 /**
  *
- * @author dell
+ * @author Korisnik
  */
 public class Start {
 
     public Start() {
-       
         PocetniInsert.izvedi();
-      
     }
-    
-    
 
+    
     public static void main(String[] args) {
        new Start();
     }

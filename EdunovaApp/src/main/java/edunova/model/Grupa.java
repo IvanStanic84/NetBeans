@@ -7,68 +7,67 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 @Entity
 public class Grupa extends Entitet {
 
-    private String naziv;
+	private String naziv;
+        @ManyToOne
+	private Smjer smjer;
+	private Date datumPocetka;
+	private Integer maksimalnoPolaznika;
+        @ManyToOne
+	private Predavac predavac;
 
-    @ManyToOne
-    private Smjer smjer;
-    private Date datumPocetka;
-    private Integer maksimalnoPolaznika;
+           @OneToMany(mappedBy = "grupa")
+	private List<Clan> clanovi = new ArrayList<>();
 
-    @ManyToOne
-    private Predavac predavac;
+	public String getNaziv() {
+		return naziv;
+	}
 
-    @OneToMany(mappedBy = "grupa")
-    private List<Clan> clanovi = new ArrayList<>();
+	public void setNaziv(String naziv) {
+		this.naziv = naziv;
+	}
 
-    public String getNaziv() {
-        return naziv;
-    }
+	public Smjer getSmjer() {
+		return smjer;
+	}
 
-    public void setNaziv(String naziv) {
-        this.naziv = naziv;
-    }
+	public void setSmjer(Smjer smjer) {
+		this.smjer = smjer;
+	}
 
-    public Smjer getSmjer() {
-        return smjer;
-    }
+	public Date getDatumPocetka() {
+		return datumPocetka;
+	}
 
-    public void setSmjer(Smjer smjer) {
-        this.smjer = smjer;
-    }
+	public void setDatumPocetka(Date datumPocetka) {
+		this.datumPocetka = datumPocetka;
+	}
 
-    public Date getDatumPocetka() {
-        return datumPocetka;
-    }
+	public Integer getMaksimalnoPolaznika() {
+		return maksimalnoPolaznika;
+	}
 
-    public void setDatumPocetka(Date datumPocetka) {
-        this.datumPocetka = datumPocetka;
-    }
+	public void setMaksimalnoPolaznika(Integer maksimalnoPolaznika) {
+		this.maksimalnoPolaznika = maksimalnoPolaznika;
+	}
 
-    public Integer getMaksimalnoPolaznika() {
-        return maksimalnoPolaznika;
-    }
+	public Predavac getPredavac() {
+		return predavac;
+	}
 
-    public void setMaksimalnoPolaznika(Integer maksimalnoPolaznika) {
-        this.maksimalnoPolaznika = maksimalnoPolaznika;
-    }
+	public void setPredavac(Predavac predavac) {
+		this.predavac = predavac;
+	}
 
-    public Predavac getPredavac() {
-        return predavac;
-    }
+	public List<Clan> getClanovi() {
+		return clanovi;
+	}
 
-    public void setPredavac(Predavac predavac) {
-        this.predavac = predavac;
-    }
-
-    public List<Clan> getClanovi() {
-        return clanovi;
-    }
-
-    public void setClanovi(List<Clan> clanovi) {
-        this.clanovi = clanovi;
-    }
+	public void setClanovi(List<Clan> clanovi) {
+		this.clanovi = clanovi;
+	}
 
 }
