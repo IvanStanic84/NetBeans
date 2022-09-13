@@ -1,7 +1,8 @@
 package edunova.model;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
-
+@Entity
 public class Ribic extends Entitet {
 
 	private String ime;

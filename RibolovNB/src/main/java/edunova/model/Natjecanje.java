@@ -2,6 +2,7 @@ package edunova.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +15,7 @@ public class Natjecanje extends Entitet {
 	private Date kraj;
         @ManyToOne
 	private Riboloviste riboloviste;
-
+      @OneToMany(mappedBy = "natjecanje")
 	private List<Ulov> ulovi = new ArrayList<>();
 
 	public Natjecanje(Integer sifra, String vrsta, Date pocetak, Date kraj, Riboloviste riboloviste, List<Ulov> ulovi) {

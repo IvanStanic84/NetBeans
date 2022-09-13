@@ -1,7 +1,6 @@
 package edunova.util;
 
-import edunova.util.HibernateUtil;
-import edunovaeclipse.util.Pomocno;
+
 import org.hibernate.Session;
 
 /**
