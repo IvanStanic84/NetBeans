@@ -2,7 +2,6 @@ package edunova.model;
 
 import jakarta.persistence.Entity;
 
-
 @Entity
 public class Predavac extends Osoba {
 

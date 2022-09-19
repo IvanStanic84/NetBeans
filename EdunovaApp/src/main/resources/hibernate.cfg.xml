@@ -42,6 +42,6 @@
         <mapping class="edunova.model.Predavac" />
         <mapping class="edunova.model.Grupa" />
         <mapping class="edunova.model.Clan" />
-      
+       
     </session-factory>
 </hibernate-configuration>

@@ -2,7 +2,6 @@ package edunova.model;
 
 import jakarta.persistence.MappedSuperclass;
 
-
 @MappedSuperclass
 public abstract class Osoba extends Entitet {
 

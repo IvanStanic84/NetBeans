@@ -11,8 +11,10 @@
         <maven.compiler.target>18</maven.compiler.target>
         <exec.mainClass>edunova.Start</exec.mainClass>
     </properties>
-    
     <dependencies>
+        
+  
+        
         
         <!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
         <dependency>
@@ -34,12 +36,9 @@
             <artifactId>javafaker</artifactId>
             <version>1.0.2</version>
         </dependency>
+        
+        
 
-        
-        
-        
-        
+
     </dependencies>
-    
-    
 </project>
