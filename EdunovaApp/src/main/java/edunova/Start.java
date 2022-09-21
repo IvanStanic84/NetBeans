@@ -14,6 +14,7 @@ import edunova.util.EdunovaException;
 import edunova.util.HibernateUtil;
 import edunova.util.PocetniInsert;
 import edunova.util.Pomocno;
+import edunova.view.SplashScreen;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,40 +28,46 @@ import java.util.logging.Logger;
 public class Start {
 
     public Start() {
+        new SplashScreen().setVisible(true);
+    }
 
-//        PocetniInsert.izvedi();
-//        for(Smjer s : new ObradaSmjer().read()){
-//            System.out.println(s.getNaziv());         
-//        }
-//        ObradaSmjer os = new ObradaSmjer();
-//        Smjer s = new Smjer();
-//        s.setNaziv("Prvi pomoću kontrolera");
-//        s.setCijena(BigDecimal.ONE);
-//        os.setEntitet(s);
-//        try {
-//            os.create();
-//        } catch (EdunovaException ex) {
-//            System.out.println(ex.getPoruka());
-//        }
-//        s = new Smjer();
-//        s.setNaziv("Prvi pomoću kontrolera");
-//        os.setEntitet(s);
-//        try {
-//            os.create();
-//        } catch (EdunovaException ex) {
-//            System.out.println(ex.getPoruka());
-//        }
-        //new PocetniInsert();
-//        ObradaPolaznik op = new ObradaPolaznik();
-//        Polaznik p = new Polaznik();
-//        p.setIme("Pero");
-//        p.setOib("52696585232");
-//        op.setEntitet(p);
-//        try {
-//            op.create();
-//        } catch (EdunovaException ex) {
-//            System.out.println(ex.getPoruka());
-//        }
+    public static void main(String[] args) {
+        new Start();
+    }
+    
+    private void testiranje(){
+         for(Smjer s : new ObradaSmjer().read()){
+            System.out.println(s.getNaziv());         
+        }
+        ObradaSmjer os = new ObradaSmjer();
+        Smjer s = new Smjer();
+        s.setNaziv("Prvi pomoću kontrolera");
+        s.setCijena(BigDecimal.ONE);
+        os.setEntitet(s);
+        try {
+            os.create();
+        } catch (EdunovaException ex) {
+            System.out.println(ex.getPoruka());
+        }
+        s = new Smjer();
+        s.setNaziv("Prvi pomoću kontrolera");
+        os.setEntitet(s);
+        try {
+            os.create();
+        } catch (EdunovaException ex) {
+            System.out.println(ex.getPoruka());
+        }
+        new PocetniInsert();
+        ObradaPolaznik op = new ObradaPolaznik();
+        Polaznik p = new Polaznik();
+        p.setIme("Pero");
+        p.setOib("52696585232");
+        op.setEntitet(p);
+        try {
+            op.create();
+        } catch (EdunovaException ex) {
+            System.out.println(ex.getPoruka());
+        }
         ObradaGrupa og = new ObradaGrupa();
         Grupa g = new Grupa();
         g.setNaziv("JP26");
@@ -92,10 +99,5 @@ public class Start {
         } catch (EdunovaException ex) {
             System.out.println(ex.getPoruka());
         }
-
-    }
-
-    public static void main(String[] args) {
-        new Start();
     }
 }

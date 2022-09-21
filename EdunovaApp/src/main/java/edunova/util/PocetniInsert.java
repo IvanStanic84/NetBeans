@@ -7,12 +7,14 @@ package edunova.util;
 import com.github.javafaker.Faker;
 import edunova.model.Clan;
 import edunova.model.Grupa;
+import edunova.model.Operater;
 import edunova.model.Polaznik;
 import edunova.model.Predavac;
 import edunova.model.Smjer;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -37,6 +39,7 @@ public class PocetniInsert {
         kreirajPolaznike(1000);
         kreirajPredavace(20);
         kreirajGrupe(5);
+        kreirajOperatera();
         sess.getTransaction().commit();
     }
 
@@ -111,6 +114,15 @@ public class PocetniInsert {
         }
         sess.persist(g);
         
+    }
+
+    private void kreirajOperatera() {
+        Operater o = new Operater();
+        o.setIme("Marija");
+        o.setPrezime("Javić");
+        o.setEmail("mjavic@edunova.hr");
+        o.setLozinka(BCrypt.hashpw("m", BCrypt.gensalt()));
+        sess.persist(o);
     }
     
     

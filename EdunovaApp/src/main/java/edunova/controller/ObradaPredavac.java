@@ -15,12 +15,12 @@ public class ObradaPredavac extends ObradaOsoba<Predavac> {
 
     @Override
     public List<Predavac> read() {
-        return session.createQuery("from Predavac", Predavac.class).list();
+        return session.createQuery("from Predavac",Predavac.class).list();
     }
 
     @Override
     protected String getNazivEntiteta() {
         return "Predavac";
     }
-
+    
 }

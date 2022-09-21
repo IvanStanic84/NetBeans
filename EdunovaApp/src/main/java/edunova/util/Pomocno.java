@@ -4,6 +4,7 @@
  */
 package edunova.util;
 
+import edunova.model.Operater;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -15,6 +16,8 @@ import java.util.Date;
 public class Pomocno {
     
     public static final String FORMAT_DATUMA = "dd.MM.yyyy";
+    public static final String NAZIV_APLIKACIJE = "EDUNOVA APP";
+    public static Operater operater;
     
     public static boolean kontrolaOib(String oib){
         if(oib==null){
