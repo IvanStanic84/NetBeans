@@ -61,6 +61,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel2.setText("Lozinka");
 
+        txtLozinka.setText("m");
         txtLozinka.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtLozinkaKeyPressed(evt);

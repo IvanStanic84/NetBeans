@@ -34,7 +34,7 @@ public class SplashScreen extends javax.swing.JFrame {
         public void run() {
             Session s = HibernateUtil.getSession();
             if(!s.getMetamodel().getEntities().isEmpty()){
-                new PocetniInsert();
+                //new PocetniInsert();
                 new Login().setVisible(true);
                 dispose();
             }else{
