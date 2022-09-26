@@ -12,28 +12,30 @@ import java.util.Date;
  * @author dell
  */
 public class Pomocno {
-    
-    public static final String FORMAT_DATUMA = "dd.MM.yyyy";
+
+    /**
+     *
+     */
+    public static final String FORMAT_DATUMA = "dd.MM.yyyy HH:mm";
     public static final String NAZIV_APLIKACIJE = "RIBOLOV APP";
-   
-    
-    public static boolean kontrolaOib(String oib){
-        if(oib==null){
+
+    public static boolean kontrolaOib(String oib) {
+        if (oib == null) {
             return false;
         }
         if (oib.length() != 11) {
             return false;
         }
-        
+
         char[] chars = oib.toCharArray();
-        
+
         int a = 10;
         int asciiDigitsOffset = '0';
         for (int i = 0; i < 10; i++) {
-        	char c = chars[i];
-        	if (c < '0' || c > '9') {
-        		return false;
-        	}
+            char c = chars[i];
+            if (c < '0' || c > '9') {
+                return false;
+            }
             a = a + (c - asciiDigitsOffset);
             a = a % 10;
             if (a == 0) {
@@ -47,10 +49,10 @@ public class Pomocno {
 
         return kontrolni == (chars[10] - asciiDigitsOffset);
     }
-    
-    public static String getPrimjerDatuma(){
+
+    public static String getPrimjerDatuma() {
         SimpleDateFormat df = new SimpleDateFormat(FORMAT_DATUMA);
         return df.format(new Date());
     }
-    
+
 }

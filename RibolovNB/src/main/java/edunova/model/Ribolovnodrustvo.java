@@ -54,4 +54,8 @@ public class Ribolovnodrustvo extends Entitet {
 		this.iban = iban;
 	}
 
+    public Object getRibic() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }
