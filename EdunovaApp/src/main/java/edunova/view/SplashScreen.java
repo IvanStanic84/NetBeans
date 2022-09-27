@@ -4,6 +4,7 @@
  */
 package edunova.view;
 
+import edunova.controller.ObradaOperater;
 import edunova.util.HibernateUtil;
 import edunova.util.PocetniInsert;
 import javax.swing.JOptionPane;
@@ -34,7 +35,11 @@ public class SplashScreen extends javax.swing.JFrame {
         public void run() {
             Session s = HibernateUtil.getSession();
             if(!s.getMetamodel().getEntities().isEmpty()){
-                //new PocetniInsert();
+                ObradaOperater op = new ObradaOperater();
+                if(op.read().isEmpty()){
+                    new PocetniInsert();
+                }
+                
                 new Login().setVisible(true);
                 dispose();
             }else{

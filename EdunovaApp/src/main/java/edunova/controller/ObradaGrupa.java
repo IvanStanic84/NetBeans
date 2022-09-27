@@ -27,9 +27,7 @@ public class ObradaGrupa extends Obrada<Grupa> {
 
     @Override
     protected void kontrolaCreate() throws EdunovaException {
-       
         kontrolaDatumPocetka();
-        
     }
 
     @Override

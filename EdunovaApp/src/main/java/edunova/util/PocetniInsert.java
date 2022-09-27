@@ -11,6 +11,7 @@ import edunova.model.Operater;
 import edunova.model.Polaznik;
 import edunova.model.Predavac;
 import edunova.model.Smjer;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
@@ -52,6 +53,10 @@ public class PocetniInsert {
     private Smjer kreirajSmjer() {
         Smjer s = new Smjer();
         s.setNaziv(faker.book().title());
+        s.setCijena(new BigDecimal(1000));
+        s.setUpisnina(new BigDecimal(100));
+        s.setTrajanje(90);
+        s.setCertificiran(false);
         sess.persist(s);
         return s;
     }
@@ -66,6 +71,7 @@ public class PocetniInsert {
         Polaznik p = new Polaznik();
         p.setIme(faker.address().firstName());
         p.setPrezime(faker.address().lastName());
+        p.setOib(Pomocno.dovuciOib());
         sess.persist(p);
         return p;
     }
@@ -80,6 +86,7 @@ public class PocetniInsert {
         Predavac p = new Predavac();
         p.setIme(faker.address().firstName());
         p.setPrezime(faker.address().lastName());
+        p.setOib(Pomocno.dovuciOib());
         sess.persist(p);
         return p;
     }
