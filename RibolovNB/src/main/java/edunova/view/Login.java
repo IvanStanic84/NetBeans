@@ -4,8 +4,11 @@
  */
 package edunova.view;
 
+import edunova.controller.ObradaOperater;
+import edunova.model.Operater;
 import edunova.util.Pomocno;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -132,8 +135,17 @@ public class Login extends javax.swing.JFrame {
             
 }    }//GEN-LAST:event_txtOibKeyPressed
     private void autorizacija() {
-
-
+        ObradaOperater oo = new ObradaOperater();
+         Operater o = oo.autoriziraj(txtOib.getText(), 
+               txtLozinka.getPassword());
+       
+       if(o==null){
+           JOptionPane.showMessageDialog(rootPane, "Autorizacija nije uspjela");
+           return;
+       }
+       Pomocno.operater=o;
+       new Izbornik().setVisible(true);
+       dispose();  
 
     }
 

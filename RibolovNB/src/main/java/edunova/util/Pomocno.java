@@ -4,6 +4,7 @@
  */
 package edunova.util;
 
+import edunova.model.Operater;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -24,7 +25,8 @@ public class Pomocno {
      */
     public static final String FORMAT_DATUMA = "dd.MM.yyyy HH:mm";
     public static final String NAZIV_APLIKACIJE = "RIBOLOV APP";
-
+    public static Operater operater;
+    
     public static boolean kontrolaOib(String oib) {
         if (oib == null) {
             return false;

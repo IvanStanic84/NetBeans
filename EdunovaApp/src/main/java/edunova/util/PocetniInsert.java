@@ -37,7 +37,7 @@ public class PocetniInsert {
         faker = new Faker();
         sess.beginTransaction();
         kreirajSmjerove(10);
-        kreirajPolaznike(1000);
+        kreirajPolaznike(10);
         kreirajPredavace(20);
         kreirajGrupe(5);
         kreirajOperatera();
