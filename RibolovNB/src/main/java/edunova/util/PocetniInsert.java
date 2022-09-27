@@ -36,10 +36,10 @@ public class PocetniInsert {
         faker = new Faker();
         sess.beginTransaction();
         kreirajRibe(10);
-        kreirajRibice(10);
-        kreirajRibolovnadrustva(0);
-        kreirajRibolovista(5);
-        //kreirajNatjecanja(5);
+        //kreirajRibice(10);
+        kreirajRibolovnadrustva(10);
+        kreirajRibolovista(10);
+        //kreirajNatjecanja(10);
         kreirajOperatera();
         sess.getTransaction().commit();
     }
@@ -87,7 +87,7 @@ public class PocetniInsert {
         sess.persist(rl);
         return rl;
     }
-
+/*
     private void kreirajRibice(int broj)  {
         for (int i = 0; i < broj; i++) {
             kreirajRibica(i);
@@ -97,42 +97,44 @@ public class PocetniInsert {
     private void kreirajRibica(int i) {
         Ribic rc = new Ribic();
         rc.setIme(faker.beer().name());
-        rc.setPrezime(faker.beer().name());
-        rc.setOib(Pomocno.getOib());
-        /*
+        rc.setPrezime(faker.beer().hop());
+        rc.setOib("70515566734");
+        
         if (i % 2 == 1) {
             rc.setRibolovnodrustvo(ribolovnadrustva.get(i-1));
         } else {
             rc.setRibolovnodrustvo(ribolovnadrustva.get(i));
         }
-*/
-     //   rc.setRibolovnodrustvo(ribolovnodrustvo);
+        Ribolovnodrustvo ribolovnodrustvo = null;
+
+       rc.setRibolovnodrustvo(ribolovnodrustvo);
         sess.persist(rc);
 
     }
-   /* private void kreirajNatjecanja(int broj) {
+   private void kreirajNatjecanja(int broj) {
         for (int i = 0; i < broj; i++) {
             kreirajNatjecanje(i);
         }
     }
 
-    /*private void kreirajNatjecanje(int i) {
-        Natjecanje n = new Natjecanje();
+    private void kreirajNatjecanje(int i) {
+        Natjecanje n = new Natjecanje() ;
         n.setVrsta(faker.beer().name());
-        //n.setPocetak(faker.beer().name());
-        //n.setKraj(Pomocno.getOib());
-        /*if (i % 2 == 1) {
-            rc.setRibolovnodrustvo(ribolovnadrustva.get(i));
+        //n.setPocetak());
+        //n.setKraj();
+        if (i % 2 == 1) {
+            n.setRiboloviste(ribolovista.get(i-1));
         } else {
-            rc.setRibolovnodrustvo(ribolovnadrustva.get(i+1));
+            n.setRiboloviste(ribolovista.get(i));
         }
 
-        sess.persist(rc);
+        sess.persist(n);
 
     }
 */
 
     private void kreirajOperatera() {
+        
         Operater o = new Operater();
         o.setIme("Ivan");
         o.setPrezime("Stanić");

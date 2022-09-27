@@ -70,6 +70,11 @@ public class Login extends javax.swing.JFrame {
         });
 
         btnPrijava.setText("Prijava");
+        btnPrijava.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrijavaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -134,6 +139,10 @@ public class Login extends javax.swing.JFrame {
             }
             
 }    }//GEN-LAST:event_txtOibKeyPressed
+
+    private void btnPrijavaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrijavaActionPerformed
+autorizacija();
+    }//GEN-LAST:event_btnPrijavaActionPerformed
     private void autorizacija() {
         ObradaOperater oo = new ObradaOperater();
          Operater o = oo.autoriziraj(txtOib.getText(), 

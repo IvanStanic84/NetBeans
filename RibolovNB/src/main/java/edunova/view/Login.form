@@ -112,6 +112,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Prijava"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrijavaActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

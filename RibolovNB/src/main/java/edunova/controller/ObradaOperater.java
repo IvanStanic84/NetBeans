@@ -5,22 +5,24 @@
 package edunova.controller;
 
 import edunova.model.Operater;
+import edunova.util.RibolovException;
 import jakarta.persistence.NoResultException;
 import java.util.List;
+
 import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
  * @author Korisnik
  */
-public class ObradaOperater extends ObradaRibic {
+public class ObradaOperater extends Obrada<Operater>{
 
-    public Operater autoriziraj(String Oib, char[] lozinka) {
+    public Operater autoriziraj(String oib, char[] lozinka) {
         Operater o;
         try {
-            o = session.createQuery("from Operater where Oib=:Oib",
+            o = session.createQuery("from Operater where oib=:oib",
                     Operater.class)
-                    .setParameter("Oib", Oib)
+                    .setParameter("oib", oib)
                     .getSingleResult();
         } catch (NoResultException e) {
             return null;
@@ -33,6 +35,8 @@ public class ObradaOperater extends ObradaRibic {
             // ne postavljamo lozinku da ne bude u memoriji
             return vrati;
         }
+        
+        
 
         return null;
     }
@@ -45,5 +49,17 @@ public class ObradaOperater extends ObradaRibic {
     @Override
     protected String getNazivEntiteta() {
         return "Operater";
+    }
+
+    @Override
+    protected void kontrolaCreate() throws RibolovException {
+    }
+
+    @Override
+    protected void kontrolaUpdate() throws RibolovException {
+    }
+
+    @Override
+    protected void kontrolaDelete() throws RibolovException {
     }
 }
