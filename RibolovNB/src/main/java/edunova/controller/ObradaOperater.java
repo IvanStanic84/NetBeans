@@ -15,12 +15,12 @@ import org.mindrot.jbcrypt.BCrypt;
  */
 public class ObradaOperater extends ObradaRibic {
 
-    public Operater autoriziraj(String oib, char[] lozinka) {
+    public Operater autoriziraj(String Oib, char[] lozinka) {
         Operater o;
         try {
-            o = session.createQuery("from Operater where oib=:oib",
+            o = session.createQuery("from Operater where Oib=:Oib",
                     Operater.class)
-                    .setParameter("oib", oib)
+                    .setParameter("Oib", Oib)
                     .getSingleResult();
         } catch (NoResultException e) {
             return null;

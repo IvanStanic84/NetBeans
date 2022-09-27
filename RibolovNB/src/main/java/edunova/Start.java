@@ -7,6 +7,7 @@ package edunova;
 
 import edunova.util.HibernateUtil;
 import edunova.util.PocetniInsert;
+import edunova.view.SplashScreen;
 
 /**
  *
@@ -14,12 +15,11 @@ import edunova.util.PocetniInsert;
  */
 public class Start {
 
-    public Start() {
-        PocetniInsert.izvedi();
+ public Start() {
+        new SplashScreen().setVisible(true);
     }
 
-    
     public static void main(String[] args) {
-       new Start();
+        new Start();
     }
 }

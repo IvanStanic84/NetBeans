@@ -4,10 +4,13 @@
  */
 package edunova.model;
 
+import jakarta.persistence.Entity;
+
 /**
  *
  * @author Korisnik
  */
+@Entity
 public class Operater extends Ribic {
 
     private String lozinka;

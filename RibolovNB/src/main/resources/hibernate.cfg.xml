@@ -43,6 +43,7 @@
         <mapping class="edunova.model.Riboloviste" />
         <mapping class="edunova.model.Ribolovnodrustvo" />
         <mapping class="edunova.model.Ulov" />
+        <mapping class="edunova.model.Operater" />
        
     </session-factory>
 </hibernate-configuration>ateconfiguration>
