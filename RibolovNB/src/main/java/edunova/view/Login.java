@@ -137,6 +137,7 @@ public class Login extends javax.swing.JFrame {
                 txtLozinka.requestFocus();
                 return;
             }
+            autorizacija();
             
 }    }//GEN-LAST:event_txtOibKeyPressed
 

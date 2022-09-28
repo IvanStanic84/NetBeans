@@ -31,7 +31,9 @@ public class ObradaOperater extends Obrada<Operater>{
         if (BCrypt.checkpw(new String(lozinka), o.getLozinka())) {
             Operater vrati = new Operater();
             vrati.setSifra(o.getSifra());
-
+            vrati.setIme(o.getIme());
+            vrati.setPrezime(o.getPrezime());
+            vrati.setOib(o.getOib());
             // ne postavljamo lozinku da ne bude u memoriji
             return vrati;
         }
