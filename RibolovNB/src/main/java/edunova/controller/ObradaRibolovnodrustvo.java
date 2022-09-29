@@ -35,10 +35,10 @@ public class ObradaRibolovnodrustvo extends Obrada<Ribolovnodrustvo> {
 
     @Override
     protected void kontrolaDelete() throws RibolovException {
-        if (entitet.getRibic() != null) {
+      /*  if (entitet.getRibic() != null ) {
             throw new RibolovException("Ribolovno društvo ima ribiče i ne može se "
                     + "obrisati dok se ne obrišu svi ribiči u ovom društvu");
-        }
+        }*/
     }
 
     @Override
