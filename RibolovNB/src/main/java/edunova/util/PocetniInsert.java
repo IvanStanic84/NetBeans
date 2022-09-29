@@ -28,9 +28,10 @@ public class PocetniInsert {
 
     public PocetniInsert() {
         ribe = new ArrayList<>();
-        ribici = new ArrayList<>();
+        
         ribolovnadrustva = new ArrayList<>();
         ribolovista = new ArrayList<>();
+        ribici = new ArrayList<>();
         natjecanja = new ArrayList<>();
         sess = HibernateUtil.getSession();
         faker = new Faker();
@@ -90,27 +91,23 @@ public class PocetniInsert {
 /*
     private void kreirajRibice(int broj)  {
         for (int i = 0; i < broj; i++) {
-            kreirajRibica(i);
+           ribici.add(kreirajRibica());
         }
     }
 
-    private void kreirajRibica(int i) {
+    private void kreirajRibica() {
         Ribic rc = new Ribic();
         rc.setIme(faker.beer().name());
         rc.setPrezime(faker.beer().hop());
         rc.setOib("70515566734");
         
-        if (i % 2 == 1) {
-            rc.setRibolovnodrustvo(ribolovnadrustva.get(i-1));
-        } else {
-            rc.setRibolovnodrustvo(ribolovnadrustva.get(i));
-        }
-        Ribolovnodrustvo ribolovnodrustvo = null;
 
-       rc.setRibolovnodrustvo(ribolovnodrustvo);
+       
         sess.persist(rc);
+   
 
     }
+    /*
    private void kreirajNatjecanja(int broj) {
         for (int i = 0; i < broj; i++) {
             kreirajNatjecanje(i);
