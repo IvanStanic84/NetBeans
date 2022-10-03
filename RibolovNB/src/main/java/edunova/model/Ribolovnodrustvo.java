@@ -1,6 +1,8 @@
 package edunova.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 public class Ribolovnodrustvo extends Entitet {
@@ -9,6 +11,9 @@ public class Ribolovnodrustvo extends Entitet {
 	private String mjesto;
 	private String oib;
 	private String iban;
+        
+        @OneToMany(mappedBy = "ribolovnodrustvo")
+        private List<Ribic> ribici;
 
 	public Ribolovnodrustvo(Integer sifra, String ime, String mjesto, String oib, String iban) {
 		super(sifra);
@@ -54,12 +59,19 @@ public class Ribolovnodrustvo extends Entitet {
 		this.iban = iban;
 	}
 
-    
+    public List<Ribic> getRibici() {
+        return ribici;
+    }
 
-    @Override
+    public void setRibici(List<Ribic> ribici) {
+        this.ribici = ribici;
+    }
+
+     @Override
     public String toString() {
-return ime;    }
-    
-    
+        return ime;
+    }
+
+
 
 }

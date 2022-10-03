@@ -14,6 +14,7 @@ public class RibolovException extends Exception {
 
     public RibolovException(String poruka) {
         super(poruka);
+        this.poruka=poruka;
     }
 
     public String getPoruka() {
