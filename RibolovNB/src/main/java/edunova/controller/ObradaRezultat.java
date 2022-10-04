@@ -4,7 +4,7 @@
  */
 package edunova.controller;
 
-import edunova.model.Ulov;
+import edunova.model.Rezultat;
 import edunova.util.RibolovException;
 import java.util.List;
 
@@ -12,11 +12,11 @@ import java.util.List;
  *
  * @author Korisnik
  */
-public class ObradaUlov extends Obrada<Ulov> {
+public class ObradaRezultat extends Obrada<Rezultat> {
 
     @Override
-    public List<Ulov> read() {
-        return session.createQuery("from Ulov", Ulov.class).list();
+    public List<Rezultat> read() {
+        return session.createQuery("from Rezultat", Rezultat.class).list();
     }
 
     @Override
@@ -36,7 +36,7 @@ public class ObradaUlov extends Obrada<Ulov> {
 
     @Override
     protected String getNazivEntiteta() {
-        return "Ulov";
+        return "Rezultat";
     }
 
     private void kontrolaMasa() throws RibolovException {
