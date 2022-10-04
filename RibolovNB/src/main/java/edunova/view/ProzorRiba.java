@@ -8,8 +8,6 @@ import edunova.controller.ObradaRiba;
 import edunova.model.Riba;
 import edunova.util.Pomocno;
 import edunova.util.RibolovException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -97,6 +95,11 @@ public class ProzorRiba extends javax.swing.JFrame {
         });
 
         btnPovratakNaGlavniIzbornik.setText("Povratak na glavni izbornik");
+        btnPovratakNaGlavniIzbornik.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPovratakNaGlavniIzbornikActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -208,6 +211,9 @@ public class ProzorRiba extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnObrisiActionPerformed
+
+    private void btnPovratakNaGlavniIzbornikActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPovratakNaGlavniIzbornikActionPerformed
+        dispose();    }//GEN-LAST:event_btnPovratakNaGlavniIzbornikActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

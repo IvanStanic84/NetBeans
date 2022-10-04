@@ -8,8 +8,6 @@ import edunova.controller.ObradaRibolovnodrustvo;
 import edunova.model.Ribolovnodrustvo;
 import edunova.util.Pomocno;
 import edunova.util.RibolovException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -68,6 +66,7 @@ public class ProzorRibolovnodrustvo extends javax.swing.JFrame {
         btnDodaj = new javax.swing.JButton();
         btnPromjeni = new javax.swing.JButton();
         btnIzbrisi = new javax.swing.JButton();
+        btnIzlaz = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -108,6 +107,13 @@ public class ProzorRibolovnodrustvo extends javax.swing.JFrame {
             }
         });
 
+        btnIzlaz.setText("Povratak na glavni izbornik");
+        btnIzlaz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIzlazActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -116,24 +122,29 @@ public class ProzorRibolovnodrustvo extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtIme)
-                    .addComponent(txtMjesto)
-                    .addComponent(txtIban)
-                    .addComponent(txtOib)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtIme)
+                            .addComponent(txtMjesto)
+                            .addComponent(txtIban)
+                            .addComponent(txtOib)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnDodaj)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnPromjeni)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnIzbrisi)))
-                        .addGap(0, 1, Short.MAX_VALUE)))
-                .addGap(44, 44, 44))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnDodaj)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnPromjeni)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnIzbrisi)))
+                                .addGap(0, 1, Short.MAX_VALUE)))
+                        .addGap(44, 44, 44))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnIzlaz, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,7 +171,9 @@ public class ProzorRibolovnodrustvo extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnDodaj)
                             .addComponent(btnIzbrisi)
-                            .addComponent(btnPromjeni)))
+                            .addComponent(btnPromjeni))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnIzlaz))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
@@ -198,7 +211,7 @@ public class ProzorRibolovnodrustvo extends javax.swing.JFrame {
 
     private void btnPromjeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromjeniActionPerformed
 
-       if (obrada.getEntitet() == null) {
+        if (obrada.getEntitet() == null) {
             JOptionPane.showMessageDialog(rootPane, "Prvo odaberite stavku za promjenu");
             return;
         }
@@ -216,7 +229,7 @@ public class ProzorRibolovnodrustvo extends javax.swing.JFrame {
 
     private void btnIzbrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzbrisiActionPerformed
 
-if (obrada.getEntitet() == null) {
+        if (obrada.getEntitet() == null) {
             JOptionPane.showMessageDialog(rootPane, "Prvo odaberite stavku za promjenu");
             return;
         }
@@ -228,20 +241,24 @@ if (obrada.getEntitet() == null) {
         }
 
 
-
     }//GEN-LAST:event_btnIzbrisiActionPerformed
+
+    private void btnIzlazActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzlazActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnIzlazActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDodaj;
     private javax.swing.JButton btnIzbrisi;
+    private javax.swing.JButton btnIzlaz;
     private javax.swing.JButton btnPromjeni;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<Ribolovnodrustvo> lstEntiteti;
+    private javax.swing.JList<edunova.model.Ribolovnodrustvo> lstEntiteti;
     private javax.swing.JTextField txtIban;
     private javax.swing.JTextField txtIme;
     private javax.swing.JTextField txtMjesto;

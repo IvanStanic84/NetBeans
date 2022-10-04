@@ -8,8 +8,6 @@ import edunova.controller.ObradaRiboloviste;
 import edunova.model.Riboloviste;
 import edunova.util.Pomocno;
 import edunova.util.RibolovException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -111,6 +109,11 @@ public class ProzorRiboloviste extends javax.swing.JFrame {
         });
 
         btnIzlaz.setText("Povratak na glavni izbornik");
+        btnIzlaz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIzlazActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -212,6 +215,10 @@ public class ProzorRiboloviste extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnObrisiActionPerformed
+
+    private void btnIzlazActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzlazActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnIzlazActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
