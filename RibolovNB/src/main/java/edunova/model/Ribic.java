@@ -58,7 +58,7 @@ public class Ribic extends Entitet {
 
     @Override
     public String toString() {
-        return ime;
+        return ime + " " + prezime;
     }
 
 }
