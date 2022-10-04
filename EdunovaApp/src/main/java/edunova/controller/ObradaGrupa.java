@@ -4,10 +4,12 @@
  */
 package edunova.controller;
 
+import edunova.model.Clan;
 import edunova.model.Grupa;
 import edunova.util.EdunovaException;
 import edunova.util.Pomocno;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -19,6 +21,20 @@ import java.util.List;
  */
 public class ObradaGrupa extends Obrada<Grupa> {
 
+    @Override
+    public void update() throws EdunovaException {
+        //kontrolaUpdate();
+        session.beginTransaction();
+        for(Clan c: entitet.getClanovi()){
+            session.persist(c);
+        }
+        session.persist(entitet);
+        session.getTransaction().commit();
+    }
+
+    
+    
+    
     @Override
     public List<Grupa> read() {
         // from Grupa označava sve entitete klase Grupa. Ne ide se na ime tablice već se ide na ime klase
@@ -43,6 +59,10 @@ public class ObradaGrupa extends Obrada<Grupa> {
     @Override
     protected String getNazivEntiteta() {
         return "Grupa";
+    }
+    
+    public void prijePromjeneKontrola() throws EdunovaException{
+        kontrolaUpdate();
     }
 
     private void kontrolaDatumPocetka() throws EdunovaException {
@@ -97,6 +117,15 @@ public class ObradaGrupa extends Obrada<Grupa> {
             throw new EdunovaException("Grupa " + g.getNaziv() 
                     + " počinje na uneseni datum");
         }
+    }
+
+    public void pocistiClanove() {
+        session.beginTransaction();
+        for(Clan e : entitet.getClanovi()){
+            session.remove(e);
+        }
+        session.getTransaction().commit();
+        entitet.setClanovi(new ArrayList<>());
     }
 
 

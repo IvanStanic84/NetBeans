@@ -13,6 +13,7 @@ import edunova.model.Predavac;
 import edunova.model.Smjer;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Session;
 import org.mindrot.jbcrypt.BCrypt;
@@ -105,16 +106,18 @@ public class PocetniInsert {
         }else{
             g.setSmjer(smjerovi.get(i));
         }
+        g.setDatumPocetka(new Date());
         g.setPredavac(predavaci.get(i));
         sess.persist(g);
         Clan c;
         // ovdje popraviti
-        for(int t=i*10;t<(t*10)+10;t++){
+        for(int t=i*5;t<(t*5)+5;t++){
             if(t>=polaznici.size()){
                 continue;
             }
             c=new Clan();
             c.setGrupa(g);
+            c.setNapomena(faker.lorem().sentence(2));
             c.setPolaznik(polaznici.get(t));
             sess.persist(c);
             g.getClanovi().add(c);
