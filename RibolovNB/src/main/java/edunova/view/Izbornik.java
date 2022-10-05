@@ -19,7 +19,7 @@ public class Izbornik extends javax.swing.JFrame {
         initComponents();
         postavke();
     }
-    
+
     private void postavke() {
         setTitle(Pomocno.NAZIV_APLIKACIJE + " "
                 + Pomocno.operater.getIme() + " "
@@ -82,6 +82,11 @@ public class Izbornik extends javax.swing.JFrame {
         jMenu1.add(jMenuItem4);
 
         jMenuItem5.setText("Natjecanje");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem5);
 
         jMenuItem6.setText("Ulov");
@@ -122,6 +127,9 @@ public class Izbornik extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         new ProzorRibic().setVisible(true);    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        new ProzorNatjecanje().setVisible(true);    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
