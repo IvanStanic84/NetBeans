@@ -21,20 +21,50 @@ import java.util.List;
  */
 public class ObradaGrupa extends Obrada<Grupa> {
 
+    private List<Clan> noviClanovi;
+
     @Override
-    public void update() throws EdunovaException {
-        //kontrolaUpdate();
+    public void create() throws EdunovaException {
+        kontrolaCreate();
         session.beginTransaction();
-        for(Clan c: entitet.getClanovi()){
+        session.persist(entitet);
+        for (Clan c : noviClanovi) {
+            c.setGrupa(entitet);
             session.persist(c);
         }
+        entitet.setClanovi(noviClanovi);
+        
+        session.getTransaction().commit();
+    }
+
+    @Override
+    public void delete() throws EdunovaException {
+        kontrolaDelete();
+        session.beginTransaction();
+        for (Clan c : entitet.getClanovi()) {
+            session.remove(c);
+        }
+        session.remove(entitet);
+        session.getTransaction().commit();
+    }
+    
+    
+
+    @Override
+    public void update() throws EdunovaException {
+        kontrolaUpdate();
+        session.beginTransaction();
+        for (Clan c : entitet.getClanovi()) {
+            session.remove(c);
+        }
+        for (Clan c : noviClanovi) {
+            session.persist(c);
+        }
+        entitet.setClanovi(noviClanovi);
         session.persist(entitet);
         session.getTransaction().commit();
     }
 
-    
-    
-    
     @Override
     public List<Grupa> read() {
         // from Grupa označava sve entitete klase Grupa. Ne ide se na ime tablice već se ide na ime klase
@@ -43,42 +73,61 @@ public class ObradaGrupa extends Obrada<Grupa> {
 
     @Override
     protected void kontrolaCreate() throws EdunovaException {
+        kontrolaNaziv();
+        kontrolaSmjer();
+        kontrolaBrojPolaznika();
         kontrolaDatumPocetka();
     }
 
     @Override
     protected void kontrolaUpdate() throws EdunovaException {
 
+        kontrolaCreate();
+        
     }
 
     @Override
     protected void kontrolaDelete() throws EdunovaException {
-
+        if(!noviClanovi.isEmpty()){
+            throw new EdunovaException("Ne može se obrisati grupa koja ima članove");
+        }
     }
 
     @Override
     protected String getNazivEntiteta() {
         return "Grupa";
     }
-    
-    public void prijePromjeneKontrola() throws EdunovaException{
-        kontrolaUpdate();
+
+    private void kontrolaNaziv() throws EdunovaException {
+        if (entitet.getNaziv() == null || entitet.getNaziv().isEmpty()) {
+            throw new EdunovaException("Naziv obavezno");
+        }
+    }
+
+    private void kontrolaBrojPolaznika() throws EdunovaException {
+        if (entitet.getMaksimalnoPolaznika() != null
+                && entitet.getMaksimalnoPolaznika() > 0) {
+            if (entitet.getMaksimalnoPolaznika() < noviClanovi.size()) {
+                throw new EdunovaException("Grupa ima više članova od maksimalnog broja članova");
+            }
+
+        }
     }
 
     private void kontrolaDatumPocetka() throws EdunovaException {
         kontrolaDatumPocetkaObavezno();
-        kontrolaDatumPocetkaVeciOdDanas();      
+        kontrolaDatumPocetkaVeciOdDanas();
         kontrolaDatumPocetkaMoraBitiRadniDan();
         kontrolaDatumPocetkaNemaGrupeKojaPocinjeNaTajDan();
     }
 
     private void kontrolaDatumPocetkaObavezno() throws EdunovaException {
         if (entitet.getDatumPocetka() == null) {
-            throw new EdunovaException("Datum početka obavezno. npr " 
+            throw new EdunovaException("Datum početka obavezno. npr "
                     + Pomocno.getPrimjerDatuma());
         }
     }
-    
+
     private void kontrolaDatumPocetkaVeciOdDanas() throws EdunovaException {
         GregorianCalendar k = (GregorianCalendar) Calendar.getInstance();
         k.setTime(new Date());
@@ -86,21 +135,21 @@ public class ObradaGrupa extends Obrada<Grupa> {
         k.set(Calendar.MINUTE, 0);
         k.set(Calendar.SECOND, 0);
         k.set(Calendar.MILLISECOND, 0);
-        if(entitet.getDatumPocetka().before(k.getTime())){
-            throw new EdunovaException("Datum početka ne može biti prije danas " + 
-                    Pomocno.getPrimjerDatuma());
+        if (entitet.getDatumPocetka().before(k.getTime())) {
+            throw new EdunovaException("Datum početka ne može biti prije danas "
+                    + Pomocno.getPrimjerDatuma());
         }
     }
 
-    private void kontrolaDatumPocetkaMoraBitiRadniDan()throws EdunovaException {
+    private void kontrolaDatumPocetkaMoraBitiRadniDan() throws EdunovaException {
         GregorianCalendar k = (GregorianCalendar) Calendar.getInstance();
         k.setTime(entitet.getDatumPocetka());
-        if (k.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY ||
-                k.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY){
+        if (k.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY
+                || k.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
             SimpleDateFormat df = new SimpleDateFormat("EEEE");
-             throw new EdunovaException("Datum početka mora biti radni dan. "
-                     + "Postavljeni datum je " +
-                     df.format(entitet.getDatumPocetka()));
+            throw new EdunovaException("Datum početka mora biti radni dan. "
+                    + "Postavljeni datum je "
+                    + df.format(entitet.getDatumPocetka()));
         }
     }
 
@@ -114,19 +163,24 @@ public class ObradaGrupa extends Obrada<Grupa> {
         } catch (Exception e) {
         }
         if (g != null) {
-            throw new EdunovaException("Grupa " + g.getNaziv() 
+            throw new EdunovaException("Grupa " + g.getNaziv()
                     + " počinje na uneseni datum");
         }
     }
 
-    public void pocistiClanove() {
-        session.beginTransaction();
-        for(Clan e : entitet.getClanovi()){
-            session.remove(e);
-        }
-        session.getTransaction().commit();
-        entitet.setClanovi(new ArrayList<>());
+    public List<Clan> getNoviClanovi() {
+        return noviClanovi;
     }
 
+    public void setNoviClanovi(List<Clan> noviClanovi) {
+        this.noviClanovi = noviClanovi;
+    }
+
+    private void kontrolaSmjer() throws EdunovaException {
+        if (entitet.getSmjer()== null ) {
+            throw new EdunovaException("Smjer obavezno");
+        }
+        
+    }
 
 }
