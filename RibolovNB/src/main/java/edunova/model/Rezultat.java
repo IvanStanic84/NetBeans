@@ -57,5 +57,9 @@ public class Rezultat extends Entitet {
     public void setMasa(Integer masa) {
         this.masa = masa;
     }
+    @Override
+    public String toString() {
+        return ribic + " " + natjecanje;
+    }
 
 }

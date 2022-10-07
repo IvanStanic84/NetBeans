@@ -14,6 +14,9 @@ import java.util.List;
  */
 public class ObradaRezultat extends Obrada<Rezultat> {
 
+    public ObradaRezultat() {
+    }
+
     @Override
     public List<Rezultat> read() {
         return session.createQuery("from Rezultat", Rezultat.class).list();

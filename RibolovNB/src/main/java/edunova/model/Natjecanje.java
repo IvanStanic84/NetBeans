@@ -16,19 +16,18 @@ public class Natjecanje extends Entitet {
     @ManyToOne
     private Riboloviste riboloviste;
     @OneToMany(mappedBy = "natjecanje")
-    private List<Rezultat> ulovi = new ArrayList<>();
+    private List<Rezultat> rezultati = new ArrayList<>();
 
-    public Natjecanje(Integer sifra, String vrsta, Date pocetak, Date kraj, Riboloviste riboloviste, List<Rezultat> ulovi) {
+    public Natjecanje(Integer sifra, String vrsta, Date pocetak, Date kraj, Riboloviste riboloviste, List<Rezultat> rezultati) {
         super(sifra);
         this.vrsta = vrsta;
         this.pocetak = pocetak;
         this.kraj = kraj;
         this.riboloviste = riboloviste;
-        this.ulovi = ulovi;
+        this.rezultati = rezultati;
     }
 
     public Natjecanje() {
-        super();
     }
 
     public String getVrsta() {
