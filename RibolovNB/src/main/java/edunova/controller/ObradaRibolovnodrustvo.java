@@ -8,7 +8,6 @@ import edunova.model.Ribolovnodrustvo;
 import edunova.util.Pomocno;
 import edunova.util.RibolovException;
 import java.util.List;
-import javax.swing.border.EtchedBorder;
 
 /**
  *
@@ -31,13 +30,16 @@ public class ObradaRibolovnodrustvo extends Obrada<Ribolovnodrustvo> {
 
     @Override
     protected void kontrolaUpdate() throws RibolovException {
-
+        kontrolaIme();
+        kontrolaMjesto();
+        kontrolaOib();
+        kontrolaIban();
     }
 
     @Override
     protected void kontrolaDelete() throws RibolovException {
-        if (entitet.getRibici() != null 
-                && !entitet.getRibici().isEmpty() ) {
+        if (entitet.getRibici() != null
+                && !entitet.getRibici().isEmpty()) {
             throw new RibolovException("Ribolovno društvo ima ribiče "
                     + "i ne može se "
                     + "obrisati dok se ne obrišu svi ribiči u ovom društvu");
@@ -75,7 +77,10 @@ public class ObradaRibolovnodrustvo extends Obrada<Ribolovnodrustvo> {
         }
     }
 
-    private void kontrolaIban() {
+    private void kontrolaIban() throws RibolovException {
+        if (entitet.getIban() == null || entitet.getIban().trim().isEmpty()) {
+            throw new RibolovException("IBAN ribolovnog društva mora biti unešen");
+        }
 
     }
 

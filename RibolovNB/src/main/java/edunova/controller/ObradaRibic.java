@@ -25,16 +25,26 @@ public class ObradaRibic extends Obrada<Ribic> {
         kontrolaIme();
         kontrolaPrezime();
         kontrolaOib();
+        kontrolaRibolovnodrustvo();
 
     }
 
     @Override
     protected void kontrolaUpdate() throws RibolovException {
+        kontrolaIme();
+        kontrolaPrezime();
+        kontrolaOib();
+        kontrolaRibolovnodrustvo();
     }
 
     @Override
     protected void kontrolaDelete() throws RibolovException {
-
+        if (entitet.getRezultati() != null
+                && !entitet.getRezultati().isEmpty()) {
+            throw new RibolovException("Ribič ima postignute rezultate "
+                    + "i ne može se "
+                    + "obrisati dok se ne obrišu svi rezultati kojima je ovaj ribič prisustvovao");
+        }
     }
 
     @Override
@@ -66,6 +76,10 @@ public class ObradaRibic extends Obrada<Ribic> {
         if (entitet.getPrezime() == null || entitet.getPrezime().trim().isEmpty()) {
             throw new RibolovException("Prezime ribiča mora biti unešeno");
         }
+
+    }
+
+    private void kontrolaRibolovnodrustvo() {
 
     }
 }

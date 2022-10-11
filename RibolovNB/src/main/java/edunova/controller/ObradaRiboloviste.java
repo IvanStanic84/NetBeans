@@ -4,10 +4,10 @@
  */
 package edunova.controller;
 
-
 import edunova.model.Riboloviste;
 import edunova.util.RibolovException;
 import java.util.List;
+import edunova.util.Pomocno;
 
 /**
  *
@@ -28,10 +28,18 @@ public class ObradaRiboloviste extends Obrada<Riboloviste> {
 
     @Override
     protected void kontrolaUpdate() throws RibolovException {
+        kontrolaNaziv();
+        kontrolaVrstaVode();
     }
 
     @Override
     protected void kontrolaDelete() throws RibolovException {
+        if (entitet.getNatjecanja() != null
+                && !entitet.getNatjecanja().isEmpty()) {
+            throw new RibolovException("Ribolovište ima natjecanja "
+                    + "i ne može se "
+                    + "obrisati dok se ne obrišu sva natjecanja na ovom ribolovištu");
+        }
     }
 
     @Override

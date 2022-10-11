@@ -2,6 +2,9 @@ package edunova.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 public class Rezultat extends Entitet {
@@ -13,6 +16,9 @@ public class Rezultat extends Entitet {
     @ManyToOne
     private Riba riba;
     private Integer masa;
+  
+    
+  
 
     public Rezultat(Integer sifra, Natjecanje natjecanje, Ribic ribic, Riba riba, Integer masa) {
         super(sifra);

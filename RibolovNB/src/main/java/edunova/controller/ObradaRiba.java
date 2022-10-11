@@ -26,12 +26,17 @@ public class ObradaRiba extends Obrada<Riba> {
 
     @Override
     protected void kontrolaUpdate() throws RibolovException {
-
+        kontrolaVrsta();
     }
 
     @Override
     protected void kontrolaDelete() throws RibolovException {
-
+        if (entitet.getRezultati() != null
+                && !entitet.getRezultati().isEmpty()) {
+            throw new RibolovException("Riba ima rezultate na natjecanjima "
+                    + "i ne može se "
+                    + "obrisati dok se ne obrišu svi rezultati koji sadže ovu ribu");
+        }
     }
 
     @Override

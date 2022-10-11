@@ -10,6 +10,7 @@ import edunova.model.Ribic;
 import edunova.model.Ribolovnodrustvo;
 import edunova.util.Pomocno;
 import edunova.util.RibolovException;
+import java.awt.event.KeyEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -57,7 +58,7 @@ public class ProzorRibic extends javax.swing.JFrame {
         var s = obrada.getEntitet();
         txtIme.setText(s.getIme());
         txtPrezime.setText(s.getPrezime());
-        //txtOib.setText(s.getOib());
+        txtOib.setText(s.getOib());
         cmbRibolovnoDrustvo.setSelectedItem(s.getRibolovnodrustvo());
 
     }
@@ -67,7 +68,7 @@ public class ProzorRibic extends javax.swing.JFrame {
         var s = obrada.getEntitet();
         s.setIme(txtIme.getText());
         s.setPrezime(txtPrezime.getText());
-        //s.setOib(txtOib.getText());
+        s.setOib(txtOib.getText());
         s.setRibolovnodrustvo((Ribolovnodrustvo) cmbRibolovnoDrustvo.getSelectedItem());
 
     }
@@ -83,7 +84,7 @@ public class ProzorRibic extends javax.swing.JFrame {
         txtIme = new javax.swing.JTextField();
         txtPrezime = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtOib = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         cmbRibolovnoDrustvo = new javax.swing.JComboBox<>();
         btnDodaj = new javax.swing.JButton();
@@ -94,6 +95,11 @@ public class ProzorRibic extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lstEntiteti.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lstEntiteti.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                lstEntitetiKeyPressed(evt);
+            }
+        });
         lstEntiteti.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 lstEntitetiValueChanged(evt);
@@ -148,7 +154,7 @@ public class ProzorRibic extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnIzlaz, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtPrezime)
-                    .addComponent(jTextField3)
+                    .addComponent(txtOib)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnDodaj)
@@ -179,7 +185,7 @@ public class ProzorRibic extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtOib, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -258,6 +264,15 @@ public class ProzorRibic extends javax.swing.JFrame {
     private void btnIzlazActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzlazActionPerformed
         dispose();    }//GEN-LAST:event_btnIzlazActionPerformed
 
+    private void lstEntitetiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstEntitetiKeyPressed
+        
+        if(evt.getKeyCode()!=KeyEvent.VK_ENTER){
+            return;
+        }
+       
+        lstEntiteti.requestFocus();
+    }//GEN-LAST:event_lstEntitetiKeyPressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDodaj;
     private javax.swing.JButton btnIzlaz;
@@ -269,9 +284,9 @@ public class ProzorRibic extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JList<Ribic> lstEntiteti;
     private javax.swing.JTextField txtIme;
+    private javax.swing.JTextField txtOib;
     private javax.swing.JTextField txtPrezime;
     // End of variables declaration//GEN-END:variables
 

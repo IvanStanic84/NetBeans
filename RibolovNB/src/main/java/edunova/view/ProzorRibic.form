@@ -30,7 +30,7 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="btnIzlaz" max="32767" attributes="0"/>
                   <Component id="txtPrezime" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jTextField3" alignment="0" max="32767" attributes="0"/>
+                  <Component id="txtOib" alignment="0" max="32767" attributes="0"/>
                   <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="btnDodaj" min="-2" max="-2" attributes="0"/>
@@ -65,7 +65,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTextField3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtOib" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -102,6 +102,7 @@
             <Property name="selectionMode" type="int" value="0"/>
           </Properties>
           <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="lstEntitetiKeyPressed"/>
             <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="lstEntitetiValueChanged"/>
           </Events>
           <AuxValues>
@@ -132,7 +133,7 @@
         <Property name="text" type="java.lang.String" value="OIB"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField3">
+    <Component class="javax.swing.JTextField" name="txtOib">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>

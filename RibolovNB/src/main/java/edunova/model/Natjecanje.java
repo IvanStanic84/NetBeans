@@ -18,6 +18,14 @@ public class Natjecanje extends Entitet {
     @OneToMany(mappedBy = "natjecanje")
     private List<Rezultat> rezultati = new ArrayList<>();
 
+    public List<Rezultat> getRezultati() {
+        return rezultati;
+    }
+
+    public void setRezultati(List<Rezultat> rezultati) {
+        this.rezultati = rezultati;
+    }
+
     public Natjecanje(Integer sifra, String vrsta, Date pocetak, Date kraj, Riboloviste riboloviste, List<Rezultat> rezultati) {
         super(sifra);
         this.vrsta = vrsta;
