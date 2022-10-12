@@ -69,7 +69,7 @@ public class Ribolovnodrustvo extends Entitet {
 
      @Override
     public String toString() {
-        return ime;
+        return ime + ", " + mjesto;
     }
 
 

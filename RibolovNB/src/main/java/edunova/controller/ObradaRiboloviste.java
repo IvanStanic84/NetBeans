@@ -7,7 +7,6 @@ package edunova.controller;
 import edunova.model.Riboloviste;
 import edunova.util.RibolovException;
 import java.util.List;
-import edunova.util.Pomocno;
 
 /**
  *
@@ -24,12 +23,16 @@ public class ObradaRiboloviste extends Obrada<Riboloviste> {
     protected void kontrolaCreate() throws RibolovException {
         kontrolaNaziv();
         kontrolaVrstaVode();
+        kontrolaNazivMoraBitiUnesen();
+
     }
 
     @Override
     protected void kontrolaUpdate() throws RibolovException {
         kontrolaNaziv();
         kontrolaVrstaVode();
+        kontrolaNazivMoraBitiUnesen();
+  
     }
 
     @Override
