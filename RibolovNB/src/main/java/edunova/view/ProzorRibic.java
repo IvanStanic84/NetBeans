@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 public class ProzorRibic extends javax.swing.JFrame {
 
     private ObradaRibic obrada;
+    private int selectedIndex;
 
     /**
      *
@@ -28,14 +29,16 @@ public class ProzorRibic extends javax.swing.JFrame {
     public ProzorRibic() {
         initComponents();
         obrada = new ObradaRibic();
-
+        selectedIndex = 0;
         postavke();
         ucitaj();
     }
 
     private void ucitaj() {
-        lstEntiteti.setModel(
-                new RibolovListModel(obrada.read()));
+        lstEntiteti.setModel(new RibolovListModel<>(obrada.read()));
+        if (lstEntiteti.getModel().getSize() > 0) {
+            lstEntiteti.setSelectedIndex(selectedIndex);
+        }
 
     }
 
@@ -265,11 +268,11 @@ public class ProzorRibic extends javax.swing.JFrame {
         dispose();    }//GEN-LAST:event_btnIzlazActionPerformed
 
     private void lstEntitetiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstEntitetiKeyPressed
-        
-        if(evt.getKeyCode()!=KeyEvent.VK_ENTER){
+
+        if (evt.getKeyCode() != KeyEvent.VK_ENTER) {
             return;
         }
-       
+
         lstEntiteti.requestFocus();
     }//GEN-LAST:event_lstEntitetiKeyPressed
 

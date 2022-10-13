@@ -4,6 +4,7 @@
  */
 package edunova.view;
 
+import com.github.lgooddatepicker.components.DatePickerSettings;
 import edunova.controller.ObradaNatjecanje;
 import edunova.controller.ObradaRiboloviste;
 import edunova.model.Natjecanje;
@@ -12,7 +13,13 @@ import edunova.model.Ribolovnodrustvo;
 import edunova.util.Pomocno;
 import javax.swing.DefaultComboBoxModel;
 import edunova.util.RibolovException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import javax.swing.JOptionPane;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  *
@@ -24,6 +31,7 @@ public class ProzorNatjecanje extends javax.swing.JFrame {
      * Creates new form ProzorNatjecanje
      */
     private ObradaNatjecanje obrada;
+    private int selectedIndex;
 
     /**
      *
@@ -31,14 +39,16 @@ public class ProzorNatjecanje extends javax.swing.JFrame {
     public ProzorNatjecanje() {
         initComponents();
         obrada = new ObradaNatjecanje();
-
+        selectedIndex = 0;
         postavke();
         ucitaj();
     }
 
     private void ucitaj() {
-        lstEntiteti.setModel(
-                new RibolovListModel(obrada.read()));
+        lstEntiteti.setModel(new RibolovListModel<>(obrada.read()));
+        if (lstEntiteti.getModel().getSize() > 0) {
+            lstEntiteti.setSelectedIndex(selectedIndex);
+        }
 
     }
 
@@ -46,6 +56,16 @@ public class ProzorNatjecanje extends javax.swing.JFrame {
         setTitle(Pomocno.NAZIV_APLIKACIJE + " "
                 + " Natjecanje");
         ucitajRibolovista();
+
+    }
+
+    private void prilagodiDatePicker() {
+        DatePickerSettings dps
+                = new DatePickerSettings(new Locale("hr", "HR"));
+        dps.setFormatForDatesCommonEra(Pomocno.FORMAT_DATUMA);
+        dps.setTranslationClear("Očisti");
+        dps.setTranslationToday("Danas");
+        //  dtpPocetak.setSettings(dps);
     }
 
     private void ucitajRibolovista() {
@@ -60,7 +80,11 @@ public class ProzorNatjecanje extends javax.swing.JFrame {
     private void popuniView() {
         var s = obrada.getEntitet();
         txtVrsta.setText(s.getVrsta());
-
+        Date input = s.getPocetak();
+        LocalDate date = input.toInstant()
+                .atZone(ZoneId.systemDefault()).toLocalDate();
+        dtpPocetak.setDateTimePermissive(LocalDateTime.MIN);
+        dtpZavrsetak.setDateTimePermissive(LocalDateTime.MIN);
         cmbRiboloviste.setSelectedItem(s.getRiboloviste());
 
     }
@@ -69,7 +93,12 @@ public class ProzorNatjecanje extends javax.swing.JFrame {
 
         var s = obrada.getEntitet();
         s.setVrsta(txtVrsta.getText());
-
+        /*s.setPocetak(dtpPocetak.getDatePicker()!= null
+                ? Date.from(Instant.MIN)(dtpPocetak.getDatePicker()
+                        
+                ) : null
+        );
+         */
         s.setRiboloviste((Riboloviste) cmbRiboloviste.getSelectedItem());
 
     }
@@ -89,9 +118,9 @@ public class ProzorNatjecanje extends javax.swing.JFrame {
         btnDodaj = new javax.swing.JButton();
         btnPromjeni = new javax.swing.JButton();
         btnObrisi = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        dateTimePicker1 = new com.github.lgooddatepicker.components.DateTimePicker();
-        dateTimePicker2 = new com.github.lgooddatepicker.components.DateTimePicker();
+        btnIzlaz = new javax.swing.JButton();
+        dtpPocetak = new com.github.lgooddatepicker.components.DateTimePicker();
+        dtpZavrsetak = new com.github.lgooddatepicker.components.DateTimePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -133,10 +162,10 @@ public class ProzorNatjecanje extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Povratak na glavni izbornik");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnIzlaz.setText("Povratak na glavni izbornik");
+        btnIzlaz.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnIzlazActionPerformed(evt);
             }
         });
 
@@ -157,7 +186,7 @@ public class ProzorNatjecanje extends javax.swing.JFrame {
                             .addComponent(cmbRiboloviste, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnIzlaz, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -171,8 +200,8 @@ public class ProzorNatjecanje extends javax.swing.JFrame {
                         .addGap(235, 235, 235))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dateTimePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dateTimePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(dtpPocetak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dtpZavrsetak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -192,26 +221,26 @@ public class ProzorNatjecanje extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dateTimePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dtpPocetak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(13, 13, 13)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dateTimePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dtpZavrsetak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnDodaj)
                             .addComponent(btnPromjeni)
                             .addComponent(btnObrisi))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4)))
+                        .addComponent(btnIzlaz)))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        dispose();    }//GEN-LAST:event_jButton4ActionPerformed
+    private void btnIzlazActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIzlazActionPerformed
+        dispose();    }//GEN-LAST:event_btnIzlazActionPerformed
 
     private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
         obrada.setEntitet(new Natjecanje());
@@ -263,7 +292,6 @@ public class ProzorNatjecanje extends javax.swing.JFrame {
                 || lstEntiteti.getSelectedValue() == null) {
             return;
         }
-
         obrada.setEntitet(lstEntiteti.getSelectedValue());
         popuniView();
 
@@ -273,12 +301,12 @@ public class ProzorNatjecanje extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDodaj;
+    private javax.swing.JButton btnIzlaz;
     private javax.swing.JButton btnObrisi;
     private javax.swing.JButton btnPromjeni;
     private javax.swing.JComboBox<Riboloviste> cmbRiboloviste;
-    private com.github.lgooddatepicker.components.DateTimePicker dateTimePicker1;
-    private com.github.lgooddatepicker.components.DateTimePicker dateTimePicker2;
-    private javax.swing.JButton jButton4;
+    private com.github.lgooddatepicker.components.DateTimePicker dtpPocetak;
+    private com.github.lgooddatepicker.components.DateTimePicker dtpZavrsetak;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

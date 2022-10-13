@@ -170,7 +170,7 @@ public class PocetniInsert {
 
     private Riboloviste riboloviste1() {
         Riboloviste rl = new Riboloviste();
-        rl.setNaziv("Mrtvača Ladimirevci");
+        rl.setNaziv("Mrtvača, Ladimirevci");
         rl.setVrstavode("Bara");
         sess.persist(rl);
         return rl;
@@ -178,7 +178,7 @@ public class PocetniInsert {
 
     private Riboloviste riboloviste2() {
         Riboloviste rl = new Riboloviste();
-        rl.setNaziv("Stara Drava P. Podgajci");
+        rl.setNaziv("Stara Drava, P. Podgajci");
         rl.setVrstavode("Stajačica");
         sess.persist(rl);
         return rl;
@@ -186,7 +186,7 @@ public class PocetniInsert {
 
     private Riboloviste riboloviste3() {
         Riboloviste rl = new Riboloviste();
-        rl.setNaziv("Orlovac Ivanovci");
+        rl.setNaziv("Orlovac, Ivanovci");
         rl.setVrstavode("Tekučica");
         sess.persist(rl);
         return rl;
@@ -194,7 +194,7 @@ public class PocetniInsert {
 
     private Riboloviste riboloviste4() {
         Riboloviste rl = new Riboloviste();
-        rl.setNaziv("Drava Osijek");
+        rl.setNaziv("Drava, Osijek");
         rl.setVrstavode("Tekučica");
         sess.persist(rl);
         return rl;
@@ -202,7 +202,7 @@ public class PocetniInsert {
 
     private Riboloviste riboloviste5() {
         Riboloviste rl = new Riboloviste();
-        rl.setNaziv("Stoppeldorf Vladislavci");
+        rl.setNaziv("Stoppeldorf, Vladislavci");
         rl.setVrstavode("Ribnjak");
         sess.persist(rl);
         return rl;
