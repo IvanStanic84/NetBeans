@@ -61,11 +61,11 @@ public class ProzorNatjecanje extends javax.swing.JFrame {
 
     private void prilagodiDatePicker() {
         DatePickerSettings dps
-                = new DatePickerSettings(new Locale("hr", "HR"));
+                = new DatePickerSettings(/*new Locale("hr", "HR")*/);
         dps.setFormatForDatesCommonEra(Pomocno.FORMAT_DATUMA);
         dps.setTranslationClear("Očisti");
         dps.setTranslationToday("Danas");
-        //  dtpPocetak.setSettings(dps);
+        //dtpPocetak.setSettings(dps);
     }
 
     private void ucitajRibolovista() {
@@ -80,11 +80,12 @@ public class ProzorNatjecanje extends javax.swing.JFrame {
     private void popuniView() {
         var s = obrada.getEntitet();
         txtVrsta.setText(s.getVrsta());
-        Date input = s.getPocetak();
+  /*      Date input = s.getPocetak();
         LocalDate date = input.toInstant()
                 .atZone(ZoneId.systemDefault()).toLocalDate();
         dtpPocetak.setDateTimePermissive(LocalDateTime.MIN);
         dtpZavrsetak.setDateTimePermissive(LocalDateTime.MIN);
+*/
         cmbRiboloviste.setSelectedItem(s.getRiboloviste());
 
     }
@@ -93,12 +94,17 @@ public class ProzorNatjecanje extends javax.swing.JFrame {
 
         var s = obrada.getEntitet();
         s.setVrsta(txtVrsta.getText());
-        /*s.setPocetak(dtpPocetak.getDatePicker()!= null
-                ? Date.from(Instant.MIN)(dtpPocetak.getDatePicker()
+   /*     s.setPocetak(dtpPocetak.getDatePicker()!= null
+                ? Date.from(Instant.MIN)
                         
-                ) : null
+                 : null
         );
-         */
+         s.setPocetak(dtpZavrsetak.getDatePicker()!= null
+                ? Date.from(Instant.MIN)
+                        
+                 : null
+        );
+*/
         s.setRiboloviste((Riboloviste) cmbRiboloviste.getSelectedItem());
 
     }
@@ -174,8 +180,8 @@ public class ProzorNatjecanje extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()

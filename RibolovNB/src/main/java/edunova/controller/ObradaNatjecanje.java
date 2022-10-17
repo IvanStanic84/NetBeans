@@ -31,6 +31,9 @@ public class ObradaNatjecanje extends Obrada<Natjecanje> {
 
     @Override
     protected void kontrolaUpdate() throws RibolovException {
+        kontrolaVrsta();
+        kontrolaPocetak();
+        kontrolaKraj();
     }
 
     @Override
@@ -57,7 +60,7 @@ public class ObradaNatjecanje extends Obrada<Natjecanje> {
     private void kontrolaPocetak() throws RibolovException {
 
         if (entitet.getPocetak() == null) {
-            throw new RibolovException("Datum i vrijeme početka obavezno. npr "
+            throw new RibolovException("Datum i vrijeme početka obavezno, npr. "
                     + Pomocno.getPrimjerDatuma());
         }
     }
@@ -65,7 +68,7 @@ public class ObradaNatjecanje extends Obrada<Natjecanje> {
     private void kontrolaKraj() throws RibolovException {
 
         if (entitet.getKraj() == null) {
-            throw new RibolovException("Datum i vrijeme završetka obavezno. npr "
+            throw new RibolovException("Datum i vrijeme završetka obavezno, npr. "
                     + Pomocno.getPrimjerDatuma());
         }
     }
