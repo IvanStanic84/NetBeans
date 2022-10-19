@@ -35,16 +35,25 @@ public class ProzorGrupa extends javax.swing.JFrame {
 
     private ObradaGrupa obrada;
     private ObradaPolaznik obradaPolaznik;
+    private Izbornik izbornik;
 
     /**
      * Creates new form ProzorGrupa
      */
-    public ProzorGrupa() {
+    public ProzorGrupa(Izbornik izbornik) {
         initComponents();
+        this.izbornik=izbornik;
         obrada = new ObradaGrupa();
         obradaPolaznik = new ObradaPolaznik();
         postavke();
         ucitaj();
+    }
+    
+    private void postaviBrojClanovaGrupe(){
+        DefaultListModel<Clan> m = (DefaultListModel<Clan>) lstClanoviGrupe.getModel();
+        
+        lblBrojClanovaGrupe.setText(String.valueOf(m.size()));
+        
     }
 
     private void postavke() {
@@ -123,6 +132,7 @@ public class ProzorGrupa extends javax.swing.JFrame {
         btnPromjeni = new javax.swing.JButton();
         btnDodaj = new javax.swing.JButton();
         btnObrisi = new javax.swing.JButton();
+        lblBrojClanovaGrupe = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -226,6 +236,8 @@ public class ProzorGrupa extends javax.swing.JFrame {
             }
         });
 
+        lblBrojClanovaGrupe.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -261,10 +273,14 @@ public class ProzorGrupa extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblBrojClanovaGrupe, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(btnDodajPolaznike, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
@@ -286,10 +302,12 @@ public class ProzorGrupa extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel8))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel8))
+                            .addComponent(lblBrojClanovaGrupe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -398,15 +416,25 @@ public class ProzorGrupa extends javax.swing.JFrame {
        
         lstPolazniciUBazi.setModel(m);
          */
+        
+        List<Polaznik> polaznici = 
+                obradaPolaznik
+                        .read(txtUvjet.getText().trim());
 
+        
+        
         lstPolazniciUBazi.setModel(
-                new EdunovaListModel<>(obradaPolaznik
-                        .read(txtUvjet.getText().trim()))
+                new EdunovaListModel<>(polaznici)
         );
+        if(polaznici.isEmpty()){
+            txtUvjet.requestFocus();
+            return;
+        }
         try {
             lstPolazniciUBazi.setSelectedIndex(0);
         } catch (Exception e) {
         }
+        lstClanoviGrupe.requestFocus();
     }//GEN-LAST:event_btnTraziPolaznikaActionPerformed
 
     private void btnDodajPolaznikeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajPolaznikeActionPerformed
@@ -420,6 +448,7 @@ public class ProzorGrupa extends javax.swing.JFrame {
                     kreirajClana(obrada.getEntitet(), p, ""));
         }
         lstClanoviGrupe.repaint();
+        postaviBrojClanovaGrupe();
 
     }//GEN-LAST:event_btnDodajPolaznikeActionPerformed
 
@@ -438,15 +467,16 @@ public class ProzorGrupa extends javax.swing.JFrame {
             m.removeElement(c);
         }
         lstClanoviGrupe.repaint();
+        postaviBrojClanovaGrupe();
     }//GEN-LAST:event_btnObrisiPolaznikeActionPerformed
 
     private void btnPromjeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromjeniActionPerformed
-        if (obrada.getEntitet() == null) {
+        if ( lstEntiteti.getSelectedValue()==null ||
+                obrada.getEntitet() == null) {
             JOptionPane.showMessageDialog(rootPane, 
                     "Prvo odaberite grupu");
             return;
         }
-
         popuniModel();
 
         try {
@@ -456,7 +486,7 @@ public class ProzorGrupa extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane,
                     e.getPoruka());
         }
-
+izbornik.definirajGraf();
     }//GEN-LAST:event_btnPromjeniActionPerformed
 
     private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
@@ -468,7 +498,11 @@ public class ProzorGrupa extends javax.swing.JFrame {
         } catch (EdunovaException e) {
             JOptionPane.showMessageDialog(rootPane,
                     e.getPoruka());
+            if(lstEntiteti.getSelectedIndex()>=0){
+                obrada.setEntitet(lstEntiteti.getSelectedValue());
+            }
         }
+        izbornik.definirajGraf();
     }//GEN-LAST:event_btnDodajActionPerformed
 
     private void lstPolazniciUBaziMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstPolazniciUBaziMouseClicked
@@ -480,8 +514,14 @@ public class ProzorGrupa extends javax.swing.JFrame {
     }//GEN-LAST:event_lstPolazniciUBaziMouseClicked
 
     private void dodajClana(){
+       
+        if(lstPolazniciUBazi.getSelectedValue()==null){
+            return;
+        }
+        
         
         DefaultListModel<Clan> clanovi = (DefaultListModel<Clan>) lstClanoviGrupe.getModel();
+       
         
         for(int i=0;i<clanovi.getSize();i++){
             if(clanovi.get(i).getPolaznik().getSifra().equals(
@@ -496,6 +536,7 @@ public class ProzorGrupa extends javax.swing.JFrame {
         m.addElement(kreirajClana(obrada.getEntitet(), lstPolazniciUBazi.getSelectedValue(), ""));
         txtUvjet.requestFocus();
         txtUvjet.selectAll();
+        postaviBrojClanovaGrupe();
     }
     
     private void txtUvjetKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUvjetKeyPressed
@@ -503,7 +544,7 @@ public class ProzorGrupa extends javax.swing.JFrame {
             return;
         }
         btnTraziPolaznikaActionPerformed(null);
-        lstClanoviGrupe.requestFocus();
+        
     }//GEN-LAST:event_txtUvjetKeyPressed
 
     private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
@@ -523,7 +564,7 @@ public class ProzorGrupa extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane,
                     e.getPoruka());
         }
-       
+       izbornik.definirajGraf();
        
     }//GEN-LAST:event_btnObrisiActionPerformed
 
@@ -560,6 +601,7 @@ public class ProzorGrupa extends javax.swing.JFrame {
         lstClanoviGrupe.setModel(
                 new EdunovaListModel<>(e.getClanovi())
         );
+        postaviBrojClanovaGrupe();
 
     }
 
@@ -617,6 +659,7 @@ public class ProzorGrupa extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JLabel lblBrojClanovaGrupe;
     private javax.swing.JList<Clan> lstClanoviGrupe;
     private javax.swing.JList<Grupa> lstEntiteti;
     private javax.swing.JList<Polaznik> lstPolazniciUBazi;

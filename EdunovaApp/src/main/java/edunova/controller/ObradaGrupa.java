@@ -9,7 +9,6 @@ import edunova.model.Grupa;
 import edunova.util.EdunovaException;
 import edunova.util.Pomocno;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -154,17 +153,25 @@ public class ObradaGrupa extends Obrada<Grupa> {
     }
 
     private void kontrolaDatumPocetkaNemaGrupeKojaPocinjeNaTajDan() throws EdunovaException {
-        Grupa g = null;
+        List<Grupa> grupe = null;
         try {
-            g = session.createQuery("from Grupa g "
-                    + " where g.datumPocetka=:dp ", Grupa.class)
+            grupe = session.createQuery("from Grupa g "
+                    + " where g.datumPocetka=:dp", Grupa.class)
                     .setParameter("dp", entitet.getDatumPocetka())
-                    .getSingleResult();
+                    .list();
         } catch (Exception e) {
         }
-        if (g != null) {
-            throw new EdunovaException("Grupa " + g.getNaziv()
+        if (grupe != null) {
+            for(Grupa g : grupe){
+                if(g.getSifra().equals(entitet.getSifra())){
+                    continue;
+                }
+                if(g.getDatumPocetka().equals(entitet.getDatumPocetka())){
+                    throw new EdunovaException("Grupa " + g.getNaziv()
                     + " počinje na uneseni datum");
+                }
+            }
+            
         }
     }
 
