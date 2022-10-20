@@ -62,6 +62,9 @@ public class ObradaGrupa extends Obrada<Grupa> {
         entitet.setClanovi(noviClanovi);
         session.persist(entitet);
         session.getTransaction().commit();
+         for (Clan c : noviClanovi) {
+            session.refresh(c);
+        }
     }
 
     @Override

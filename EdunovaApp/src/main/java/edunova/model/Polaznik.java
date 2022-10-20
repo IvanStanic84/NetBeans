@@ -1,12 +1,16 @@
 package edunova.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 public class Polaznik extends Osoba {
 
 	private String brojUgovora;
 	
+        @OneToMany(mappedBy = "polaznik")
+        private List<Clan> clanovi;
 	
 
 	public Polaznik() {
@@ -32,5 +36,15 @@ public class Polaznik extends Osoba {
 	public void setBrojUgovora(String brojUgovora) {
 		this.brojUgovora = brojUgovora;
 	}
+
+    public List<Clan> getClanovi() {
+        return clanovi;
+    }
+
+    public void setClanovi(List<Clan> clanovi) {
+        this.clanovi = clanovi;
+    }
 	
+        
+        
 }

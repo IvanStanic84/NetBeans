@@ -4,6 +4,7 @@
  */
 package edunova.controller;
 
+import com.spire.doc.LocaleIDs;
 import edunova.model.Polaznik;
 import edunova.util.EdunovaException;
 import java.util.List;
@@ -58,5 +59,14 @@ public class ObradaPolaznik extends ObradaOsoba<Polaznik>{
     }
     
     
+      @Override
+    protected void kontrolaDelete() throws EdunovaException {
+       Integer i = session.createNativeQuery(
+               "select count(*) from clan where polaznik_sifra=:p", 
+               Integer.class).setParameter("p", entitet.getSifra()).getSingleResult();
+        if(i>0){
+           throw  new EdunovaException("Polaznik je član jedne ili više grupa");
+       }
+    }
     
 }

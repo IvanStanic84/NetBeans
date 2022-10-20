@@ -27,11 +27,12 @@ public class ObradaPredavac extends ObradaOsoba<Predavac> {
     @Override
     protected void kontrolaDelete() throws EdunovaException {
         super.kontrolaDelete(); 
-        if(entitet.getGrupe()!=null 
-                && !entitet.getGrupe().isEmpty()){
-            throw new EdunovaException("Predavač je postavljen "
-                    + "na jednu ili više grupa");
-        }
+        Integer i = session.createNativeQuery(
+               "select count(*) from grupa where predavac_sifra=:p", 
+               Integer.class).setParameter("p", entitet.getSifra()).getSingleResult();
+        if(i>0){
+           throw  new EdunovaException("Predavač predaje na jednoj ili više grupa");
+       }
     }
     
     

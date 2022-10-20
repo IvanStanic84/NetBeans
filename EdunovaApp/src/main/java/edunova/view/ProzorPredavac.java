@@ -226,7 +226,7 @@ public class ProzorPredavac extends javax.swing.JFrame {
 
     private void btnPromjeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromjeniActionPerformed
         
-        if (obrada.getEntitet() == null) {
+        if (lstEntiteti.getSelectedValue()==null ||obrada.getEntitet() == null) {
             JOptionPane.showMessageDialog(rootPane, "Prvo odaberite stavku za promjenu");
             return;
         }
@@ -244,7 +244,7 @@ public class ProzorPredavac extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPromjeniActionPerformed
 
     private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
-        if (obrada.getEntitet() == null) {
+        if (lstEntiteti.getSelectedValue()==null ||obrada.getEntitet() == null) {
             JOptionPane.showMessageDialog(rootPane, "Prvo odaberite stavku za promjenu");
             return;
         }

@@ -548,7 +548,7 @@ izbornik.definirajGraf();
     }//GEN-LAST:event_txtUvjetKeyPressed
 
     private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
-       if (obrada.getEntitet() == null) {
+       if (lstEntiteti.getSelectedValue()==null ||obrada.getEntitet() == null) {
             JOptionPane.showMessageDialog(rootPane, 
                     "Prvo odaberite grupu");
             return;

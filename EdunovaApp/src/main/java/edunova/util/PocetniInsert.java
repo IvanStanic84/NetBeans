@@ -43,6 +43,7 @@ public class PocetniInsert {
         kreirajGrupe(5);
         kreirajOperatera();
         sess.getTransaction().commit();
+        HibernateUtil.reset();
     }
 
     private void kreirajSmjerove(int broj) {

@@ -36,11 +36,12 @@ public class ObradaSmjer extends Obrada<Smjer> {
 
     @Override
     protected void kontrolaDelete() throws EdunovaException {
-        if(entitet.getGrupe()!=null && 
-                !entitet.getGrupe().isEmpty()){
-            throw  new EdunovaException("Smjer ima grupe i ne može se "
-                    + "obrisati dok se ne obrišu grupe na ovom smjeru");
-        }
+         Integer i = session.createNativeQuery(
+               "select count(*) from grupa where smjer_sifra=:p", 
+               Integer.class).setParameter("p", entitet.getSifra()).getSingleResult();
+        if(i>0){
+           throw  new EdunovaException("Smjer se ne može obrisati jer je postavljen na jednu ili više grupa");
+       }
     }
 
     @Override
