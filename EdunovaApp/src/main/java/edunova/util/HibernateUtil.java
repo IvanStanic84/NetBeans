@@ -4,6 +4,8 @@
  */
 package edunova.util;
 
+import edunova.Start;
+import java.io.File;
 import org.hibernate.FlushMode;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
@@ -24,7 +26,17 @@ import org.hibernate.cfg.Configuration;
         public static Session getSession() {
             if (session == null) {
                 try {
-                    session = new Configuration().configure().buildSessionFactory().openSession();
+                    
+                    File direktorijJar = new File(
+                            Start.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+                    String hibConfigPath = direktorijJar.getParentFile() + File.separator + "hibernate.cfg.xml";
+                    if(hibConfigPath.contains("target")) {
+                         session = new Configuration().configure().buildSessionFactory().openSession();
+                     }    else{
+                        File f = new File(hibConfigPath);
+                        session = new Configuration().configure(f).buildSessionFactory().openSession();
+                     }
+                    
                     session.setHibernateFlushMode(FlushMode.ALWAYS);
                 } catch (Throwable ex) {
                     // Make sure you log the exception, as it might be swallowed

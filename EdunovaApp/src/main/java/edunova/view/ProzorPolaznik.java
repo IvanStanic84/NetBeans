@@ -236,6 +236,7 @@ public class ProzorPolaznik extends javax.swing.JFrame {
             selectedIndex = lstEntiteti.getSelectedIndex();
             ucitaj();
         } catch (EdunovaException ex) {
+            obrada.refresh();
             JOptionPane.showMessageDialog(rootPane, ex.getPoruka());
         }
         

@@ -64,7 +64,9 @@ public abstract class Obrada<T extends Entitet> {
     }
     
     
-    
+    public void refresh(){
+        session.refresh(entitet);
+    }
     
     
 }

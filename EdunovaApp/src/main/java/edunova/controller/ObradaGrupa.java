@@ -9,6 +9,7 @@ import edunova.model.Grupa;
 import edunova.util.EdunovaException;
 import edunova.util.Pomocno;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -27,11 +28,19 @@ public class ObradaGrupa extends Obrada<Grupa> {
         kontrolaCreate();
         session.beginTransaction();
         session.persist(entitet);
+        
+        
+        List<Clan> clanovi = new ArrayList<>();
+        Clan novi;
         for (Clan c : noviClanovi) {
-            c.setGrupa(entitet);
-            session.persist(c);
+            novi  = new Clan();
+            novi.setGrupa(entitet);
+            novi.setPolaznik(c.getPolaznik());
+            novi.setNapomena(c.getNapomena());
+            session.persist(novi);
+            clanovi.add(novi);
         }
-        entitet.setClanovi(noviClanovi);
+        entitet.setClanovi(clanovi);
         
         session.getTransaction().commit();
     }

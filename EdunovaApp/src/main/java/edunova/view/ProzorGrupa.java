@@ -483,6 +483,7 @@ public class ProzorGrupa extends javax.swing.JFrame {
             obrada.update();
             ucitaj();
         } catch (EdunovaException e) {
+            obrada.refresh();
             JOptionPane.showMessageDialog(rootPane,
                     e.getPoruka());
         }

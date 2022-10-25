@@ -5,15 +5,41 @@
 package edunova.view;
 
 import edunova.controller.ObradaSmjer;
+import edunova.model.Clan;
+import edunova.model.Grupa;
 import edunova.model.Smjer;
 import edunova.util.EdunovaException;
 import edunova.util.Pomocno;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.math.BigDecimal;
+import java.text.Collator;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
+import java.util.Vector;
 import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.DataFormat;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -23,6 +49,7 @@ public class ProzorSmjer extends javax.swing.JFrame {
 
     private ObradaSmjer obrada;
     private DecimalFormat nf;
+    private List<PolaznikNaGrupi> lista;
 
     /**
      * Creates new form ProzorSmjer
@@ -41,9 +68,13 @@ public class ProzorSmjer extends javax.swing.JFrame {
         setTitle(Pomocno.NAZIV_APLIKACIJE
                 + " Smjerovi");
         btnObrisi.setVisible(false);
+
     }
 
     private void ucitaj() {
+
+        // za prilagođeni prikaz na Jlist
+        //https://www.codejava.net/java-se/swing/jlist-custom-renderer-example
         DefaultListModel<Smjer> m = new DefaultListModel<>();
         m.addAll(obrada.read());
         lstEntiteti.setModel(m);
@@ -72,6 +103,9 @@ public class ProzorSmjer extends javax.swing.JFrame {
         btnDodaj = new javax.swing.JButton();
         btnPromjeni = new javax.swing.JButton();
         btnObrisi = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblTablica = new javax.swing.JTable();
+        btnExportExcel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -114,6 +148,42 @@ public class ProzorSmjer extends javax.swing.JFrame {
             }
         });
 
+        tblTablica.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Grupa", "Ime", "Prezime"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tblTablica);
+        if (tblTablica.getColumnModel().getColumnCount() > 0) {
+            tblTablica.getColumnModel().getColumn(0).setResizable(false);
+            tblTablica.getColumnModel().getColumn(1).setResizable(false);
+        }
+
+        btnExportExcel.setText("Export u Excel");
+        btnExportExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportExcelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -138,6 +208,13 @@ public class ProzorSmjer extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnObrisi))
                     .addComponent(chbCertificiran, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(btnExportExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -170,7 +247,13 @@ public class ProzorSmjer extends javax.swing.JFrame {
                             .addComponent(btnPromjeni)
                             .addComponent(btnObrisi))
                         .addGap(12, 12, 12)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnExportExcel)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -202,7 +285,7 @@ public class ProzorSmjer extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDodajActionPerformed
 
     private void btnPromjeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromjeniActionPerformed
-        if (lstEntiteti.getSelectedValue()==null || obrada.getEntitet() == null) {
+        if (lstEntiteti.getSelectedValue() == null || obrada.getEntitet() == null) {
             JOptionPane.showMessageDialog(rootPane, "Prvo odaberite stavku za promjenu");
             return;
         }
@@ -212,16 +295,27 @@ public class ProzorSmjer extends javax.swing.JFrame {
             obrada.update();
             ucitaj();
         } catch (EdunovaException ex) {
+            obrada.refresh();
             JOptionPane.showMessageDialog(rootPane, ex.getPoruka());
         }
 
     }//GEN-LAST:event_btnPromjeniActionPerformed
 
     private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
-        if (lstEntiteti.getSelectedValue()==null ||obrada.getEntitet() == null) {
+        if (lstEntiteti.getSelectedValue() == null || obrada.getEntitet() == null) {
             JOptionPane.showMessageDialog(rootPane, "Prvo odaberite stavku za promjenu");
             return;
         }
+
+        if (JOptionPane.showConfirmDialog(
+                rootPane,
+                "Sigurno obrisati smjer " + obrada.getEntitet().getNaziv(),
+                "Brisanje Smjera",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE) == JOptionPane.NO_OPTION) {
+            return;
+        }
+
         try {
             obrada.delete();
             ucitaj();
@@ -229,6 +323,110 @@ public class ProzorSmjer extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, ex.getPoruka());
         }
     }//GEN-LAST:event_btnObrisiActionPerformed
+
+    private void btnExportExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportExcelActionPerformed
+
+        JFileChooser jfc = new JFileChooser();
+        jfc.setCurrentDirectory(new File(System.getProperty("user.home")));
+        jfc.setSelectedFile(new File(System.getProperty("user.home")
+                + File.separator + "podaci.xlsx"));
+        if (jfc.showSaveDialog(this) != JFileChooser.APPROVE_OPTION) {
+            return;
+        }
+
+        try {
+
+            Workbook workbook = new XSSFWorkbook(); // new HSSFWorkbook() for generating `.xls` file
+
+            /* CreationHelper helps us create instances of various things like DataFormat, 
+           Hyperlink, RichTextString etc, in a format (HSSF, XSSF) independent way */
+            CreationHelper createHelper = workbook.getCreationHelper();
+
+            // Create a Sheet
+            Sheet sheet = workbook.createSheet("Polaznici smjera");
+
+            // Create a Font for styling header cells
+            Font headerFont = workbook.createFont();
+            headerFont.setBold(true);
+            headerFont.setFontHeightInPoints((short) 14);
+            headerFont.setColor(IndexedColors.RED.getIndex());
+
+            // Create a CellStyle with the font
+            CellStyle headerCellStyle = workbook.createCellStyle();
+            headerCellStyle.setFont(headerFont);
+
+            // Create a Row
+            Row headerRow = sheet.createRow(0);
+
+            // Create cells
+            Cell cell = headerRow.createCell(0);
+            cell.setCellValue("Grupa");
+            cell.setCellStyle(headerCellStyle);
+
+            cell = headerRow.createCell(1);
+            cell.setCellValue("Ime");
+            cell.setCellStyle(headerCellStyle);
+
+            cell = headerRow.createCell(2);
+            cell.setCellValue("Prezime");
+            cell.setCellStyle(headerCellStyle);
+
+            cell = headerRow.createCell(3);
+            cell.setCellValue("Broj");
+            cell.setCellStyle(headerCellStyle);
+
+            // Create Other rows and cells with employees data
+            int rowNum = 1;
+            Row row;
+            for (PolaznikNaGrupi p : lista) {
+                row = sheet.createRow(rowNum++);
+
+                row.createCell(0)
+                        .setCellValue(p.getGrupa());
+
+                row.createCell(1)
+                        .setCellValue(p.getIme());
+
+                row.createCell(2)
+                        .setCellValue(p.getPrezime());
+
+                row.createCell(3)
+                        .setCellValue(p.getSifra());
+
+            }
+
+            row = sheet.createRow(rowNum);
+            cell = row.createCell(3);
+            CellStyle style = workbook.createCellStyle();
+            DataFormat format = workbook.createDataFormat();
+            style.setDataFormat(format.getFormat("0.00"));
+            cell.setCellStyle(style);
+            cell.setCellFormula("sum(D2:D" + (rowNum) + ")");
+
+            // Resize all columns to fit the content size
+            for (int i = 0; i < 4; i++) {
+                sheet.autoSizeColumn(i);
+            }
+
+            // Write the output to a file
+            FileOutputStream fileOut = new FileOutputStream(jfc.getSelectedFile());
+            workbook.write(fileOut);
+            fileOut.close();
+
+            // Closing the workbook
+            workbook.close();
+
+            ProcessBuilder builder = new ProcessBuilder(
+                    "cmd.exe", "/c", jfc.getSelectedFile().getAbsolutePath());
+            builder.redirectErrorStream(true);
+            Process p = builder.start();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }//GEN-LAST:event_btnExportExcelActionPerformed
 
     private void popuniModel() {
         var s = obrada.getEntitet();
@@ -268,13 +466,89 @@ public class ProzorSmjer extends javax.swing.JFrame {
         }else{
             btnObrisi.setVisible(false);
         }
-        */
-        
-        btnObrisi.setVisible(s.getGrupe()==null || s.getGrupe().isEmpty());
+         */
+
+        btnObrisi.setVisible(s.getGrupe() == null || s.getGrupe().isEmpty());
+
+        DefaultTableModel model
+                = (DefaultTableModel) tblTablica.getModel();
+
+        model.setRowCount(0);
+
+        lista = new ArrayList<>();
+
+        for (Grupa g : s.getGrupe()) {
+            for (Clan c : g.getClanovi()) {
+                lista.add(new PolaznikNaGrupi(c.getPolaznik().getSifra(), g.getNaziv(), c.getPolaznik().getIme(), c.getPolaznik().getPrezime()));
+            }
+        }
+
+        Collections.sort(lista, Comparator.comparing(PolaznikNaGrupi::getPrezime, Collator.getInstance(new Locale("hr", "HR")))
+                .thenComparing(PolaznikNaGrupi::getIme, Collator.getInstance(new Locale("hr", "HR"))));
+
+        Vector<String> row;
+
+        for (PolaznikNaGrupi p : lista) {
+            row = new Vector<>();
+            row.add(p.getGrupa());
+            row.add(p.getIme());
+            row.add(p.getPrezime());
+            model.addRow(row);
+        }
+
+    }
+
+    private class PolaznikNaGrupi {
+
+        private int sifra;
+        private String grupa;
+        private String ime;
+        private String prezime;
+
+        public PolaznikNaGrupi(int sifra, String grupa, String ime, String prezime) {
+            this.sifra = sifra;
+            this.grupa = grupa;
+            this.ime = ime;
+            this.prezime = prezime;
+        }
+
+        public int getSifra() {
+            return sifra;
+        }
+
+        public void setSifra(int sifra) {
+            this.sifra = sifra;
+        }
+
+        public String getGrupa() {
+            return grupa;
+        }
+
+        public void setGrupa(String grupa) {
+            this.grupa = grupa;
+        }
+
+        public String getIme() {
+            return ime;
+        }
+
+        public void setIme(String ime) {
+            this.ime = ime;
+        }
+
+        public String getPrezime() {
+            return prezime;
+        }
+
+        public void setPrezime(String prezime) {
+            this.prezime = prezime;
+        }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDodaj;
+    private javax.swing.JButton btnExportExcel;
     private javax.swing.JButton btnObrisi;
     private javax.swing.JButton btnPromjeni;
     private javax.swing.JCheckBox chbCertificiran;
@@ -283,7 +557,9 @@ public class ProzorSmjer extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList<Smjer> lstEntiteti;
+    private javax.swing.JTable tblTablica;
     private javax.swing.JTextField txtCijena;
     private javax.swing.JTextField txtNaziv;
     private javax.swing.JTextField txtTrajanje;
